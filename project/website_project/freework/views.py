@@ -21,6 +21,9 @@ from .models import Usuario
 def home(request):
     return render(request, 'home.html', {})
 
+def reclutador(request):
+    return render(request, 'reclutador.html', {})   
+
 '''def create_aspirante(request):
     data_result ={'form_create_usuario': CreateUsuarioForm}
     if request.method =='POST':
