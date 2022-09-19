@@ -182,3 +182,45 @@ def list_aspiranteinfo(request):
     aspirantes= AspiranteInfo.objects.all()
     data_result = {'aspiranteinfo_list':aspirantes}
     return render (request, 'aspiranteinfolist.html', data_result)
+
+
+def inicioperfil (request):
+    return render(request, 'inicioperfil.html', {})
+
+
+'''def delete_product (request, product_id):
+    product = Product.objects.get(pk=product_id)
+    data_context = {'product':product}
+    if request.method == 'POST':
+        print (request.POST)
+        if 'yes' in request.POST:
+            product.deleted_date = timezone.now()
+            product.save()
+            return redirect('product')
+        elif 'no' in request.POST:
+            return redirect('product')
+    return render(request,'delete_product.html',data_context)'''
+
+'''def update_aspirante(request, aspiranteinfo_id):
+    aspiranteinfo = AspiranteInfo.objects.get(pk= aspiranteinfo_id)'''
+    
+
+
+
+'''def update_pokemon_pokedexx(request,pokemon_id):
+    pokemons = Pokemon.objects.get(pk=pokemon_id)
+    formulario = EditPokemonForms()
+    data_result = {'pokemon':pokemons}
+    data_result ['formulario']= formulario
+    print(pokemons)
+
+    if request.method == 'POST':
+        formulario = EditPokemonForms(request.POST,instance = pokemons)
+        print(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            data_result['message'] = "Pokemon actualizado"
+        else:
+            data_result['message'] = "Pokemon no actualizado"
+
+    return render (request,'pokedexx/pokedexx_update.html',data_result)'''

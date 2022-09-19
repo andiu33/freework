@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     
 ]
 LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/freework/home'
+LOGIN_REDIRECT_URL = '/freework/inicioperfil'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 MIDDLEWARE = [

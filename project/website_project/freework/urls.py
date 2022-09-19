@@ -22,7 +22,9 @@ urlpatterns= [
     path('perfil', views.perfil, name= 'perfil'),
     path('inicio', views.inicio, name= 'inicio'),
     path('aspiranteinfo', views.aspiranteinfo, name ='aspiranteinfo'),
-    path('aspiranteinfolist', views.list_aspiranteinfo, name= 'aspiranteinfolist' ),
+    path('aspiranteinfolist', views.list_aspiranteinfo, name= 'aspiranteinfolist'),
+    path('inicioperfil', views.inicioperfil, name= 'inicioperfil' ),
+    ##path('updateaspirante/<int:updateaspirante_id>',views.update_aspirante, name ='updateaspirante'),   
 
 
 ]

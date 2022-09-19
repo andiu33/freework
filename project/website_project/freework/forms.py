@@ -55,3 +55,7 @@ class AspiranteInfoForm(forms.ModelForm):
         model = AspiranteInfo
         fields = ['name', 'last_name','universidad', 'ultimotrabajo','descultimotrabajo']
 
+class EditAspiranteInfoForms(forms.ModelForm):
+    class Meta:
+        model = AspiranteInfo
+        fields= ['universidadcd ']
