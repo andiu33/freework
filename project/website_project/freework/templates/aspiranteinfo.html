@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE HTML>
+<!--
+	Ethereal by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>FREEWORK</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css'  %}" />
+		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Wrapper -->
+					<div id="wrapper">
+
+						
+
+						<!-- Panel (Spotlight) -->
+						<section class="panel color1">
+							<div class="intro joined">
+								<h2 class="major">Llena esta información para completar tu perfil!</h2>
+								<p>¿Te gustaría encontrar al talento más rápido? FREEWORK te ayuda ;) Con nuestro buscador te ahorraremos horas de trabajo para seleccionar al aspirante perfecto :D </p>
+							</div>
+                            <div class="inner">
+                            <form action = "" method = "post">
+
+                                {% csrf_token %}
+                            
+                                <table>
+                                    <td>{{aspiranteinfo_form}}</td>
+                                    
+                    
+                                </table>
+                                <br>
+                                <button type = "submit">Entrar</button>
+
+                                {% load static %}
+                                <!DOCTYPE HTML>
+                                <!--
+                                    Ethereal by HTML5 UP
+                                    html5up.net | @ajlkn
+                                    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+                                -->
+                               
+                                                    
+                                
+                                                        
+                                
+                                                      
+                                                        
+                                                        
+                                        <!-- Scripts -->
+                                            <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+                                            <script src="{% static 'assets/js/browser.min.js'%}"></script>
+                                            <script src="{% static 'assets/js/breakpoints.min.js'%}"></script>
+                                            <script src="{% static 'assets/js/main.js'%}"></script>
+                                
+                                    </body>
+                                </html>
+                                                            <div class=""image filtered tinted" data-position="top left">
+                                                                <img src=" {%static 'assets/images/pic02.jpg' %}" alt=""/>
+                                                            </div>

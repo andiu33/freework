@@ -18,7 +18,9 @@ from django.contrib.auth.models import User
 '''
 
 class Aspirante(models.Model):
-    id_user = models.ForeignKey(User ,null=True,on_delete=models.CASCADE)
+    ##OnetoOneField
+
+    user = models.OneToOneField(User, null=True,on_delete=models.CASCADE)
     nombre =models.CharField(max_length=255,blank=False,null=False)
     universidad = models.CharField(max_length=255,blank=False,null=False)
     enfoque = models.CharField(max_length=255,blank=False,null=False)
@@ -35,8 +37,34 @@ class Reclutador(models.Model):
     def __str__(self):
         return 'Datos del usuario:%s %s %s' %(self.id,self.empresa,self.celular)
 
+PERFIL_CHOICES =(
+        ("Aspirante", "Aspirante"),
+        ("Reclutador", "Reclutador")
+    )
 
+ENFOQUE_CHOICES =(
+    
+    ("Humanidades", "Humanidades"),
+    ("Ciencias exactas", "Ciencias exactas"),
+    ("Ciencias naturales", "Ciencias naturales"),
+    ("Ciencias sociales", "Ciencias sociales"),
+    ("Ciencias de la salud", "Ciencias de la salud"),
+    ("Negocios", "Negocios"),
+    ("Leyes", "Leyes"),
+    ("Tecnología", "Tecnologia")
+)
 
+class Perfil(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE, null=True)
+    perfil = models.CharField(max_length=20, choices= PERFIL_CHOICES, default='1' )
+    intereses = models.CharField(max_length=20, choices= ENFOQUE_CHOICES, default='8' )
 
-
-
+class AspiranteInfo(models.Model):
+    user = models.OneToOneField(User, on_delete =models.CASCADE, null =True)
+    name = models.CharField(max_length=255,blank=False,null=False)
+    last_name = models.CharField(max_length=255,blank=False,null=False)
+    universidad = models.CharField(max_length=255,blank=False,null=False)
+    ultimotrabajo= models.CharField(max_length=255,blank=False,null=False)
+    descultimotrabajo = models.CharField(max_length=255,blank=False,null=False)
+    def __str__(self):
+        return 'Datos del usuario:%s' %(self.name)

@@ -49,11 +49,11 @@ def create_reclutador(request):
     print(data_result)
     return render (request, 'freework/reclutador_create.html', data_result)'''
 
-@login_required
+'''@login_required
 def list_usuario(request):
     usuarios= Usuario.objects.all()
     data_result ={'usuario_list':usuarios}
-    return render (request, 'usuario_list.html', data_result)
+    return render (request, 'usuario_list.html', data_result)'''
 
 
 '''def update_aspirante(request, usuario_id):
@@ -88,13 +88,25 @@ def list_usuario(request):
 
 def createuser (request):
     user_form = CreateUserForm()
+    perfil_form = PerfilForm()
     contexto = {'user_form': user_form}
+    contexto = {'user_form': user_form, 'perfil_form': perfil_form}
     if request.method== 'POST':
         print(request.POST)
         user_form = CreateUserForm(request.POST)
-        if user_form.is_valid():
-            user_form.save()
-            return redirect('createtype')
+        perfil_form = PerfilForm(request.POST)
+        if user_form.is_valid() and perfil_form.is_valid():            
+            user = user_form.save()
+            perfil = perfil_form.save()
+            perfil.user = user
+            perfil.save()
+            
+            if perfil.perfil =="Aspirante":
+                return redirect('aspiranteinfo')
+            if perfil.perfil =="Reclutador":
+                return redirect('login')                            
+            else:
+                return redirect ('createuser')
     return render(request,'createuser.html',contexto)
 
 
@@ -106,6 +118,9 @@ def type_user (request):
         elif 'aspirante' in request.POST:
             return redirect('aspirante')
     return render(request,'createtype.html')
+
+def aspiranteinfo(request):
+    return render(request, 'aspiranteinfo.html', {})
 
 def aspirante (request):
     aspirante_list= Aspirante.objects.all()
@@ -132,3 +147,38 @@ def reclutador (request):
             reclutador_form.save()
             return redirect('home')
     return render(request,'reclutadorform.html',data_context)
+
+def perfil (request):
+    perfil_list = Perfil.objects.all()
+    data_context ={'perfil_list':perfil_list}
+    perfil_form = PerfilForm()
+    data_context['perfil_form'] = perfil_form
+    if request.method == 'POST':
+        perfil_form = PerfilForm(request.POST)
+        if perfil_form.is_valid():
+            perfil_form.save()
+            return redirect('perfil')
+    return render(request, 'perfilform.html', data_context)
+
+
+def inicio(request):
+    return render(request, 'inicio.html', {})
+
+
+def aspiranteinfo (request):
+    aspiranteinfo_list = AspiranteInfo.objects.all()
+    data_context ={'aspiranteinfo_list':aspiranteinfo_list}
+    aspiranteinfo_form = AspiranteInfoForm()
+    data_context['aspiranteinfo_form'] = aspiranteinfo_form
+    if request.method == 'POST':
+        aspiranteinfo_form = AspiranteInfoForm(request.POST)
+        if aspiranteinfo_form.is_valid():
+            aspiranteinfo_form.save()
+            return redirect('login')
+    return render(request, 'aspiranteinfo.html', data_context)
+
+
+def list_aspiranteinfo(request):
+    aspirantes= AspiranteInfo.objects.all()
+    data_result = {'aspiranteinfo_list':aspirantes}
+    return render (request, 'aspiranteinfolist.html', data_result)

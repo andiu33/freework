@@ -1,7 +1,7 @@
 from inspect import ArgSpec
 from socket import fromshare
 from django import forms
-from .models import Aspirante, Reclutador
+from .models import Aspirante, AspiranteInfo, Perfil, Reclutador
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -44,4 +44,14 @@ class InformationRForm(forms.ModelForm):
     class Meta:
         model = Reclutador
         fields =['empresa', 'celular']
+
+class PerfilForm(forms.ModelForm):
+    class Meta:
+        model= Perfil
+        fields = ['perfil','intereses']
+
+class AspiranteInfoForm(forms.ModelForm):
+    class Meta:
+        model = AspiranteInfo
+        fields = ['name', 'last_name','universidad', 'ultimotrabajo','descultimotrabajo']
 

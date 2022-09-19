@@ -9,7 +9,7 @@ urlpatterns= [
     ##path('createaspirante', views.create_aspirante),
     ##path('createreclutador', views.create_reclutador),
     ##path('updateusuario/<int:user_id>', views.update_aspirante),
-    path('listusuario', views.list_usuario),
+    ##path('listusuario', views.list_usuario),
     path('createtype/<int:user_id>',views.type_user, name ='createtype'),   
     ##path('reset_password/', auth_views.PasswordResetView.as_view(), name= 'password_reset'),
     ##path('reset_password_send/', auth_views.PasswordResetDoneView.as_view(), name= 'password_reset_done'),
@@ -19,5 +19,10 @@ urlpatterns= [
     path('createtype/<int:user_id/',views.type_user, name ='createtype'),   
     path('aspirante/<int:user_id/',views.aspirante, name ='aspirante'),   
     path('reclutador/<int:user_id/',views.reclutador, name ='reclutador'),   
-    
+    path('perfil', views.perfil, name= 'perfil'),
+    path('inicio', views.inicio, name= 'inicio'),
+    path('aspiranteinfo', views.aspiranteinfo, name ='aspiranteinfo'),
+    path('aspiranteinfolist', views.list_aspiranteinfo, name= 'aspiranteinfolist' ),
+
+
 ]
