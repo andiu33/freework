@@ -26,38 +26,56 @@
 						<!-- Panel (Spotlight) -->
 						<section class="panel color1">
 							<div class="intro joined">
-                                <h2 class="major">¡A un paso!</h2>
-                                <p>Por favor llena los siguientes campos :D</p>
-                                <p><a href= " {% url 'home' %}"><strong>Home</strong></a></p>
-                            
+								<h2 class="major">¡Regístrate!</h2>
+								<p>FREEWORK te ayuda! Llena los siguientes campos para encontrar trabajo o candidatos lo más rápido posible :D</p>
+                                <p><a href= " {% url 'home' %}"><strong>Inicio</strong></a></p>
                             </div>
                             <div class="inner">
                             <form action = "" method = "post">
 
                                 {% csrf_token %}
-                            
-                                <table>
-                                    <tr> 
-										<td style="font-size: 15px; font-family: sans-serif" >Tipo de Perfil</td>
-										<td> {{perfil_form.perfil }} </td>
+																															
+									<tr> 
+										<td style="font-size: 15px; font-family: sans-serif" >Username</td>
+										<td> {{ user_form.username }} </td>
+									</tr>
+									<tr> 
+										<td style="font-size: 15px; font-family: sans-serif" >Email</td>
+										<td> {{ user_form.email }} </td>
+									</tr>
+                                                        
+									<tr> 
+										<td style="font-size: 15px; font-family: sans-serif" >Nombre</td>
+										<td> {{ user_form.first_name }} </td>
+									</tr>
+									<tr> 
+										<td style="font-size: 15px; font-family: sans-serif" >Apellido</td>
+										<td> {{ user_form.last_name }} </td>
+									</tr>
+									
+									
+									<tr> 
+										<td style="font-size: 15px; font-family: sans-serif" >Password</td>
+										<td> {{ user_form.password1}} </td>
+									</tr>
+									<tr> 
+										<td style="font-size: 15px; font-family: sans-serif" >Password</td>
+										<td> {{ user_form.password2}} </td>
+									</tr>
+									<tr> 
+										<td> style="font-size: 15px; font-family: sans-serif" >Tipo de Perfil</td>
+										<td> {{recruiter_form}} </td>
 
 									</tr>
 									<tr> 
-										<td style="font-size: 15px; font-family: sans-serif" >Celular</td>
-										<td> {{ perfil_form.celular}} </td>
+										<td style="font-size: 15px; font-family: sans-serif" >Tipo de Perfil</td>
+										<td> {{profile_form}} </td>
+
 									</tr>
-									<tr> 
-										<td style="font-size: 15px; font-family: sans-serif" >Interés predominante</td>
-										<td> {{ perfil_form.intereses}} </td>
-									</tr>
-									
 									
                                 </table>
-                                <br>
+								<button type = "submit">Crear Perfil</button>
 
-                                <button type = "submit">Crear Perfil</button>
-                                <br>
-                                <p>    </p>
                             </form>
                             <br>
                             </div>
@@ -66,7 +84,6 @@
 							<div class="panel color 1" data-position="top left">
 								<img src="images/pic02.jpg" alt="" />
 							</div>
-							
 						</section>	
 						
 						

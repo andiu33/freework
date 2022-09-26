@@ -39,10 +39,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "freework",
+    "phone_field",
     
 ]
 LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/freework/inicioperfil'
+LOGIN_REDIRECT_URL = '/freework/homeprofile'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 MIDDLEWARE = [
@@ -125,3 +126,9 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+EMAIL_USE_TLS=True
+EMAIL_HOST = 'smpt.gmail.com'
+EMAIL_PORT =521
+EMAIL_HOST_USER= 'free.work.notificaciones@gmail.com'
+EMAIL_HOST_PASSWORD= 'free.work1'
+EMAIL_BACKEND = 'django.core.mail.backends.smpt.EmailBackend'

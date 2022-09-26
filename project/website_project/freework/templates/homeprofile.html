@@ -26,32 +26,39 @@
 						<!-- Panel (Spotlight) -->
 						<section class="panel color1">
 							<div class="intro joined">
-								<h2 class="major">¡A un paso!</h2>
-								<p>Por favor llena los siguientes campos :D</p>
+								<h2 class="major">Hola! @{{user.username}}</h2>
+								{% if user_profile.profile == 'Reclutador' %}
+								<h2 class="major">Hola! eres reclutador</h2>
+								<table>
+									<tr>
+										<th>Nombre</th>
+										<th>Email</th>
+										
+									</tr>
+									{% for pok in applicant_list %}
+									<tr>
+										<td>{{pok.name}}</a></td>
+										<td> {{pok.email}}</td>
+										
+	
+									</tr>
+									{% endfor %}
+								</table>
+								
+							</div>
+								{% else %}
+								<h2 class="major">Hola! eres aspirante</h2>
+								{% endif %}
+
                                 <p><a href= " {% url 'home' %}"><strong>Home</strong></a></p>
                             </div>
                             <div class="inner">
                             <form action = "" method = "post">
+                                
+                                
+                               
 
-                                {% csrf_token %}
-                            
-                                <table>
-                                    <tr> 
-										<td style="font-size: 15px; font-family: sans-serif" >Empresa</td>
-										<td> {{reclutador_form.empresa }} </td>
-
-									</tr>
-									<tr> 
-										<td style="font-size: 15px; font-family: sans-serif" >Celular</td>
-										<td> {{ reclutador_form.celular}} </td>
-									</tr>
-									
-									
-									
-                                </table>
-                                <br>
-
-                                <button type = "submit">Crear aspirante</button>
+                                
                                 <br>
                                 <p>    </p>
                             </form>

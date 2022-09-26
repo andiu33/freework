@@ -1,7 +1,7 @@
 from inspect import ArgSpec
 from socket import fromshare
 from django import forms
-from .models import Aspirante, AspiranteInfo, Perfil, Reclutador
+from .models import Applicant,  Profile, Recruiter
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -35,27 +35,21 @@ class AutheticationUserForm(AuthenticationForm):
         model = User
         fields = ['username','password']
 
-class InformationAForm(forms.ModelForm):
-    class Meta:
-        model = Aspirante
-        fields =['universidad', 'enfoque', 'celular']
-    
-class InformationRForm(forms.ModelForm):
-    class Meta:
-        model = Reclutador
-        fields =['empresa', 'celular']
 
-class PerfilForm(forms.ModelForm):
-    class Meta:
-        model= Perfil
-        fields = ['perfil','intereses']
 
-class AspiranteInfoForm(forms.ModelForm):
+class ProfileForm(forms.ModelForm):
     class Meta:
-        model = AspiranteInfo
-        fields = ['name', 'last_name','universidad', 'ultimotrabajo','descultimotrabajo']
+        model= Profile
+        fields = ['profile']
 
-class EditAspiranteInfoForms(forms.ModelForm):
-    class Meta:
-        model = AspiranteInfo
-        fields= ['universidadcd ']
+class ApplicantForm(forms.ModelForm):
+    class Meta: 
+        model = Applicant
+        fields = ['university', 'interest', 'lastjob','desclastjob', 'phone']
+
+class RecruiterForm(forms.ModelForm):
+    class Meta: 
+        model = Recruiter
+        fields = ['company', 'phone']
+
+

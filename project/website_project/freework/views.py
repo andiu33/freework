@@ -20,8 +20,7 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     return render(request, 'home.html', {})
 
-def reclutador(request):
-    return render(request, 'reclutador.html', {})   
+
 
 '''def create_aspirante(request):
     data_result ={'form_create_usuario': CreateUsuarioForm}
@@ -56,136 +55,157 @@ def list_usuario(request):
     return render (request, 'usuario_list.html', data_result)'''
 
 
-'''def update_aspirante(request, usuario_id):
-    aspirantes= Aspirante.objects.get(pk=usuario_id)
-    formulario =UpdateUsuarioForm()
-    data_result={'aspirante': aspirantes}
-    data_result['formulario']=formulario
-    
-    print(request.POST)
-    formulario = UpdateUsuarioForm(request.POST, instance= aspirantes)
-    print(request.POST)
-    if formulario.is_valid():
-        formulario.save()
-        data_result['message'] = "¡Listo! Actualizado de forma correcta ;)"
-    else:
-        data_result['message'] = "Por favor vuelve a intentarlo :("
-    return render (request, 'usuario_update.html', data_result)
-'''
 
-'''def login_usuario(request):
-    data_result ={'form_login_usuario': LoginUsuarioForm}
-    if request.method =='POST':
-        formulario = AuthenticationForm(request.POST)
-        print(request.POST)
-        if formulario.is_valid():
-            formulario.save()
-            data_result['message'] = "Correcto"
-        else:
-            data_result['message'] = "Incorrecto :("
-    print(data_result)
-    return render (request, 'freework/login.html', data_result)'''
+
 
 def createuser (request):
     user_form = CreateUserForm()
-    perfil_form = PerfilForm()
+    profile_form = ProfileForm()
     contexto = {'user_form': user_form}
-    contexto = {'user_form': user_form, 'perfil_form': perfil_form}
+    contexto = {'user_form': user_form, 'profile_form': profile_form}
     if request.method== 'POST':
         print(request.POST)
         user_form = CreateUserForm(request.POST)
-        perfil_form = PerfilForm(request.POST)
-        if user_form.is_valid() and perfil_form.is_valid():            
+        profile_form = ProfileForm(request.POST)
+        if user_form.is_valid() and profile_form.is_valid():            
             user = user_form.save()
-            perfil = perfil_form.save()
-            perfil.user = user
-            perfil.save()
-            
-            if perfil.perfil =="Aspirante":
-                return redirect('aspiranteinfo')
-            if perfil.perfil =="Reclutador":
-                return redirect('login')                            
-            else:
-                return redirect ('createuser')
+            profile = profile_form.save()
+            profile.user = user
+            profile.save()          
+            return redirect ('createtype')
+        else:
+            return redirect ('login')
     return render(request,'createuser.html',contexto)
 
 
-def type_user (request):
+def type_user (request):    
     if request.method == 'POST':
         print (request.POST)
         if 'reclutador' in request.POST:            
-            return redirect('reclutador')
+            return redirect('recruiter')
         elif 'aspirante' in request.POST:
-            return redirect('aspirante')
+            return redirect('applicant')
     return render(request,'createtype.html')
+
+
 
 def aspiranteinfo(request):
     return render(request, 'aspiranteinfo.html', {})
 
-def aspirante (request):
-    aspirante_list= Aspirante.objects.all()
-    data_context = {'aspirante_list':aspirante_list}
-    aspirante_form = InformationAForm()
-    data_context['aspirante_form'] = aspirante_form
+def createapplicant (request):
+    profile = Profile.objects
+    user_form = CreateUserForm()
+    profile_form = ProfileForm()
+    applicant_form = ApplicantForm()    
+    contexto = {'user_form': user_form, 'profile_form': profile_form, 'applicant_form': applicant_form, 'profile': profile}
+    if request.method== 'POST':
+        print(request.POST)
+        user_form = CreateUserForm(request.POST)
+        profile_form = ProfileForm(request.POST)
+        applicant_form = ApplicantForm(request.POST)
+        print(user_form.errors)
+        print(profile_form.errors)
+        print(applicant_form.errors)
+        
+        if user_form.is_valid() and profile_form.is_valid() and applicant_form.is_valid():                        
+            user = user_form.save()
+            profile = profile_form.save()
+            applicant = applicant_form.save()
+            applicant.user = user  
+            profile.profile = 'Aspirante'           
+            profile.user = user
+            profile.save() 
+            applicant.save()         
+            return redirect ('login')
+        else:
+            return redirect ('createapplicant')
+    return render(request,'createapplicant.html',contexto)    
+
+def createrecruiter (request):
+    profile = Profile.objects
+    user_form = CreateUserForm()
+    profile_form = ProfileForm()
+    recruiter_form = RecruiterForm()    
+    contexto = {'user_form': user_form, 'profile_form': profile_form, 'recruiter_form': recruiter_form, 'profile': profile}
+    if request.method== 'POST':
+        print(request.POST)
+        user_form = CreateUserForm(request.POST)
+        profile_form = ProfileForm(request.POST)
+        recruiter_form = RecruiterForm(request.POST)
+        if user_form.is_valid() and profile_form.is_valid() and recruiter_form.is_valid():                        
+            user = user_form.save()
+            profile = profile_form.save()
+            recruiter = recruiter_form.save()
+            recruiter.user = user  
+            profile.profile = 'Reclutador'           
+            profile.user = user
+            profile.save() 
+            recruiter.save()         
+            return redirect ('login')
+        else:
+            return redirect ('createrecruiter')
+    return render(request,'createrecruiter.html',contexto)    
+
+def applicant (request):
+    applicant_list= Applicant.objects.all()
+    data_context = {'applicant_list':applicant_list}
+    applicant_form = ApplicantForm()
+    data_context['applicant_form'] = applicant_form
     if request.method == 'POST':
         print("entre en post")
-        aspirante_form = InformationAForm(request.POST)
-        if aspirante_form.is_valid():
-            aspirante_form.save()
-            return redirect('home')
-    return render(request,'aspiranteform.html',data_context)
+        applicant_form = ApplicantForm(request.POST)
+        if applicant_form.is_valid():
+            applicant_form.save()
+            return redirect('login')
+    return render(request,'applicantform.html',data_context)
 
-def reclutador (request):
-    reclutador_list= Aspirante.objects.all()
-    data_context = {'reclutador_list':reclutador_list}
-    reclutador_form = InformationRForm()
-    data_context['reclutador_form'] = reclutador_form
+def recruiter (request):
+    recruiter_list= Recruiter.objects.all()
+    data_context = {'recruiter_list':recruiter_list}
+    recruiter_form = RecruiterForm()
+    data_context['recruiterr_form'] = recruiter_form
     if request.method == 'POST':
         print("entre en post")
-        reclutador_form = InformationRForm(request.POST)
-        if reclutador_form.is_valid():
-            reclutador_form.save()
-            return redirect('home')
-    return render(request,'reclutadorform.html',data_context)
+        recruiter_form = RecruiterForm(request.POST)
+        if recruiter_form.is_valid():
+            profile.profile = "Recruiter"
+            recruiter_form.save()
+            return redirect('login')
+    return render(request,'recruiterform.html',data_context)
 
-def perfil (request):
-    perfil_list = Perfil.objects.all()
-    data_context ={'perfil_list':perfil_list}
-    perfil_form = PerfilForm()
-    data_context['perfil_form'] = perfil_form
+def profile (request):
+    profile_list = Profile.objects.all()
+    data_context ={'profile_list':profile_list}
+    perfil_form = ProfileForm()
+    data_context['profile_form'] = perfil_form
     if request.method == 'POST':
-        perfil_form = PerfilForm(request.POST)
-        if perfil_form.is_valid():
-            perfil_form.save()
-            return redirect('perfil')
-    return render(request, 'perfilform.html', data_context)
+        profile_form = ProfileForm(request.POST)
+        if profile_form.is_valid():
+            profile_form.save()
+            return redirect('createtype')
+    return render(request, 'profileform.html', data_context)
 
 
 def inicio(request):
     return render(request, 'inicio.html', {})
 
 
-def aspiranteinfo (request):
-    aspiranteinfo_list = AspiranteInfo.objects.all()
-    data_context ={'aspiranteinfo_list':aspiranteinfo_list}
-    aspiranteinfo_form = AspiranteInfoForm()
-    data_context['aspiranteinfo_form'] = aspiranteinfo_form
-    if request.method == 'POST':
-        aspiranteinfo_form = AspiranteInfoForm(request.POST)
-        if aspiranteinfo_form.is_valid():
-            aspiranteinfo_form.save()
-            return redirect('login')
-    return render(request, 'aspiranteinfo.html', data_context)
 
 
-def list_aspiranteinfo(request):
-    aspirantes= AspiranteInfo.objects.all()
-    data_result = {'aspiranteinfo_list':aspirantes}
-    return render (request, 'aspiranteinfolist.html', data_result)
+def applicant_list(request):
+    applicants= Applicant.objects.all()
+    data_result = {'applicant_list':applicants}
+    return render (request, 'homeprofile.html', data_result)
 
 
-def inicioperfil (request):
-    return render(request, 'inicioperfil.html', {})
+def homeprofile (request):
+    applicants= Applicant.objects.all()
+    data_result = {'applicant_list':applicants}
+    user_request = User.objects.get(username =request.user.username)
+    user_profile =Profile.objects.get(user= user_request)
+    contexto = {'user_data': user_request, 'user_profile': user_profile,}
+    print(user_request.username)
+    return render(request, 'homeprofile.html', contexto)
 
 
 '''def delete_product (request, product_id):
