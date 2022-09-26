@@ -29,21 +29,29 @@
 								<h2 class="major">Hola! @{{user.username}}</h2>
 								{% if user_profile.profile == 'Reclutador' %}
 								<h2 class="major">Hola! eres reclutador</h2>
+								<h1> List of all Applicants </h1>
 								<table>
 									<tr>
-										<th>Nombre</th>
-										<th>Email</th>
+										<th>Username</th>
 										
+										<th>University</th>
+										<th>Interest</th>
+										<th>Lastjob</th>
+										<th>desclastjob</th>
+										<th>phone</th>
 									</tr>
 									{% for pok in applicant_list %}
 									<tr>
-										<td>{{pok.name}}</a></td>
-										<td> {{pok.email}}</td>
-										
-	
+										<td>{{pok.user.first_name}}</td>
+										<td>{{pok.user.last_name}}</td>
+										<td>{{pok.university}}</td>
+										<td>{{pok.interest}}</td>
+										<td>{{pok.lastjob}}</td>
+										<td>{{pok.desclastjob}}</td>
+										<td>{{pok.phone}}</td>
 									</tr>
 									{% endfor %}
-								</table>
+									</table>
 								
 							</div>
 								{% else %}

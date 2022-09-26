@@ -198,12 +198,13 @@ def applicant_list(request):
     return render (request, 'homeprofile.html', data_result)
 
 
+
 def homeprofile (request):
-    applicants= Applicant.objects.all()
-    data_result = {'applicant_list':applicants}
+    applicant_list= Applicant.objects.all()
+    user_list =User.objects.all()    
     user_request = User.objects.get(username =request.user.username)
     user_profile =Profile.objects.get(user= user_request)
-    contexto = {'user_data': user_request, 'user_profile': user_profile,}
+    contexto = {'user_data': user_request, 'user_profile': user_profile, 'applicant_list':applicant_list, 'user_list':user_list}
     print(user_request.username)
     return render(request, 'homeprofile.html', contexto)
 
@@ -244,3 +245,6 @@ def homeprofile (request):
             data_result['message'] = "Pokemon no actualizado"
 
     return render (request,'pokedexx/pokedexx_update.html',data_result)'''
+
+
+
