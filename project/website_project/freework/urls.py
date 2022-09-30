@@ -25,6 +25,9 @@ urlpatterns= [
     path('homeprofile', views.homeprofile, name= 'homeprofile' ),
     path('createapplicant', views.createapplicant, name= 'createapplicant' ),
     path('createrecruiter', views.createrecruiter, name= 'createrecruiter' ),
+    path('updateapplicant/<int:id>', views.updateapplicant, name= 'updateapplicant' ),
+    path('gradeapplicant', views.gradeapplicant, name= 'gradeapplicant' ),
+    path('infoapplicant', views.infoapplicant, name= 'infoapplicant' ),
     ##path('updateaspirante/<int:updateaspirante_id>',views.update_aspirante, name ='updateaspirante'),   
 
 

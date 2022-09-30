@@ -1,3 +1,4 @@
+from socket import SIO_KEEPALIVE_VALS
 from unittest.util import _MAX_LENGTH
 from django.db import models
 from django import forms
@@ -60,7 +61,7 @@ class Profile(models.Model):
     profile = models.CharField(max_length=20, choices= PROFILE_CHOICES, default='1', null=True )
 
 class Applicant(models.Model):
-    user = models.OneToOneField(User, on_delete =models.CASCADE, null =True)
+    user = models.OneToOneField(User, on_delete =models.CASCADE, null =True)    
     university = models.CharField(max_length=255,blank=False,null=True)
     interest = models.CharField(max_length=20, choices = INTEREST_CHOICES, default= '1', null=True)
     lastjob= models.CharField(max_length=255,blank=False,null=True)
@@ -77,3 +78,13 @@ class Recruiter(models.Model):
     def __str__(self):
         return 'Datos del usuario:%s' %(self.company)
 
+class GradeApplicant(models.Model):
+    user= models.OneToOneField(User, on_delete =models.CASCADE, null =True)
+    first_name =  models.CharField(max_length=255,blank=False,null=True)
+    last_name =  models.CharField(max_length=255,blank=False,null=True)
+    relation =  models.CharField(max_length=255,blank=False,null=True)
+    soft_skills = models.PositiveIntegerField(blank = True, null = True)
+    hard_skills = models.PositiveIntegerField(blank = True, null = True)
+    average_grade = models.PositiveIntegerField(blank = True, null = True)
+    def __str__(self):
+        return '%s' %(self.average_grade)

@@ -174,7 +174,7 @@ def recruiter (request):
     return render(request,'recruiterform.html',data_context)
 
 def profile (request):
-    profile_list = Profile.objects.all()
+    profile_list = Profile.objects.get()
     data_context ={'profile_list':profile_list}
     perfil_form = ProfileForm()
     data_context['profile_form'] = perfil_form
@@ -191,22 +191,61 @@ def inicio(request):
 
 
 
-
-def applicant_list(request):
-    applicants= Applicant.objects.all()
-    data_result = {'applicant_list':applicants}
-    return render (request, 'homeprofile.html', data_result)
-
-
-
+@login_required
 def homeprofile (request):
-    applicant_list= Applicant.objects.all()
+    user = request.user
+    recruiter_list = Applicant.objects.all()
+    applicant_list = Applicant.objects.filter(user_id= user)    
     user_list =User.objects.all()    
     user_request = User.objects.get(username =request.user.username)
     user_profile =Profile.objects.get(user= user_request)
-    contexto = {'user_data': user_request, 'user_profile': user_profile, 'applicant_list':applicant_list, 'user_list':user_list}
+    contexto = {'user_data': user_request, 'user_profile': user_profile, 'applicant_list':applicant_list, 'user_list':user_list, 'recruiter_list': recruiter_list}
     print(user_request.username)
     return render(request, 'homeprofile.html', contexto)
+
+@login_required
+def updateapplicant(request, id):
+    applicant = Applicant.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = ApplicantForm(request.POST, instance=applicant)
+        if form.is_valid():
+            form.save()
+            return redirect('homeprofile')
+    else:
+        form = ApplicantForm(instance=applicant)
+
+    return render(request,
+                'updateapplicant.html',
+                {'form': form})
+
+@login_required
+def gradeapplicant (request):
+    user_id= request.user
+    user = User.objects.get(username =request.user.username)    
+    grade_form = GradeApplicantForm()    
+    contexto = {'grade_form': grade_form, 'user': user, 'user_id':user_id}
+    if request.method== 'POST':
+        print(request.POST)
+        grade_form = GradeApplicantForm(request.POST)
+        if grade_form.is_valid():                                    
+            grade_form = grade_form.save()
+            grade_form.user = user  
+            grade_form.save()                 
+            return redirect ('homeprofile')
+        else:
+            return redirect ('home')
+    return render(request,'gradeapplicant.html',contexto)       
+
+
+@login_required
+def infoapplicant(request, applicant_id):
+    applicant = Applicant.objects.get(pk= applicant_id)
+    applicant_list = Applicant.objects.filter(applicant_id= applicant)
+    contexto = {'applicant_list':applicant_list}
+    return render (request, 'infoapplicant.html', contexto)
+
+
 
 
 '''def delete_product (request, product_id):
@@ -245,6 +284,7 @@ def homeprofile (request):
             data_result['message'] = "Pokemon no actualizado"
 
     return render (request,'pokedexx/pokedexx_update.html',data_result)'''
+
 
 
 

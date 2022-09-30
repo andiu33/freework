@@ -26,52 +26,23 @@
 						<!-- Panel (Spotlight) -->
 						<section class="panel color1">
 							<div class="inner">
-								<h2 class="major">Hola! {{user.first_name}}</h2>
-								{% if user_profile.profile == 'Reclutador' %}
-								<h2 class="major">Eres reclutador</h2>
-								<h1> List of all Applicants </h1>
-								<table>
-									<tr>
-										<th>Username</th>
-										<th>Nombre</th>
-										<th>Apellido</th>
-										
-									{% for pok in recruiter_list %}
-									<tr>
-										<td>{{pok.user.username}}</td>
-										<td>{{pok.user.first_name}}</td>
-										<td>{{pok.user.last_name}}</td>
-									</tr>
-									{% endfor %}
-									</table>
-								
-							</div>
-								{% else %}
-								<h2 class="major">Eres aspirante</h2>
-								<h4>¿Quieres actualizar tu información? :D</h4>
-								<h5>Da click aquí</h5>
-								{% for applicant in applicant_list %}
-									
-									<td><a href="{% url 'updateapplicant' applicant.id %}"> ACTUALIZAR</a></td>
-								
-								{% endfor %}	
-								<h4>¿Quieres llenar una opinión? :D</h4>
-								<h5>Da click aquí</h5>
-								<td><a href="{% url 'gradeapplicant' %}"> CALIFICAR</a></td>
-
-								{% endif %}
-
-                                <p><a href= " {% url 'home' %}"><strong>Home</strong></a></p>
+								<h2 class="major">¡Regístrate!</h2>
+								<p>FREEWORK te ayuda! Llena los siguientes campos para encontrar trabajo o candidatos lo más rápido posible :D</p>
+                                <p><a href= " {% url 'home' %}"><strong>Inicio</strong></a></p>
                             </div>
                             <div class="inner">
                             <form action = "" method = "post">
-                                
-                                
-                               
 
-                                
-                                <br>
-                                <p>    </p>
+                                {% csrf_token %}
+																															
+									<tr> 
+										<td style="font-size: 15px; font-family: sans-serif" >Califica a {{user.first_name}}</td>
+										<td> {{grade_form}} </td>
+									</tr>
+									
+                                </table>
+								<button type = "submit">Crear Perfil</button>
+
                             </form>
                             <br>
                             </div>

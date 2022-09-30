@@ -25,7 +25,7 @@
 
 						<!-- Panel (Spotlight) -->
 						<section class="panel color1">
-							<div class="intro joined">
+							<div class="inner">
 								<h2 class="major">¡Regístrate!</h2>
 								<p>FREEWORK te ayuda! Llena los siguientes campos para encontrar trabajo o candidatos lo más rápido posible :D</p>
                                 <p><a href= " {% url 'home' %}"><strong>Inicio</strong></a></p>
@@ -35,41 +35,11 @@
 
                                 {% csrf_token %}
 																															
-									<tr> 
-										<td style="font-size: 15px; font-family: sans-serif" >Username</td>
-										<td> {{ user_form.username }} </td>
-									</tr>
-									<tr> 
-										<td style="font-size: 15px; font-family: sans-serif" >Email</td>
-										<td> {{ user_form.email }} </td>
-									</tr>
-                                                        
-									<tr> 
-										<td style="font-size: 15px; font-family: sans-serif" >Nombre</td>
-										<td> {{ user_form.first_name }} </td>
-									</tr>
-									<tr> 
-										<td style="font-size: 15px; font-family: sans-serif" >Apellido</td>
-										<td> {{ user_form.last_name }} </td>
-									</tr>
 									
 									
-									<tr> 
-										<td style="font-size: 15px; font-family: sans-serif" >Password</td>
-										<td> {{ user_form.password1}} </td>
-									</tr>
-									<tr> 
-										<td style="font-size: 15px; font-family: sans-serif" >Password</td>
-										<td> {{ user_form.password2}} </td>
-									</tr>
-									<tr> 
-										<td style="font-size: 15px; font-family: sans-serif" >Recruiter_form</td>
-										<td> {{recruiter_form}} </td>
-
-									</tr>
 									<tr> 
 										<td style="font-size: 15px; font-family: sans-serif" >Tipo de Perfil</td>
-										<td> {{profile_form}} </td>
+										<td> {{form.as_p}} </td>
 
 									</tr>
 									

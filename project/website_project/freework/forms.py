@@ -1,7 +1,7 @@
 from inspect import ArgSpec
 from socket import fromshare
 from django import forms
-from .models import Applicant,  Profile, Recruiter
+from .models import Applicant, GradeApplicant,  Profile, Recruiter
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -52,4 +52,12 @@ class RecruiterForm(forms.ModelForm):
         model = Recruiter
         fields = ['company', 'phone']
 
+class UpdateApplicantForm(forms.ModelForm):
+    class Meta:
+        model = Applicant
+        fields= ['university', 'interest', 'lastjob','desclastjob', 'phone']
 
+class GradeApplicantForm(forms.ModelForm):
+    class Meta:
+        model = GradeApplicant
+        fields =['first_name','last_name','relation','soft_skills', 'hard_skills' ]
