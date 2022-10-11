@@ -26,27 +26,55 @@
 						<!-- Panel (Spotlight) -->
 						<section class="panel color1">
 							<div class="inner">
-								<h2 class="major">Hola! {{user.first_name}}</h2>
-								{% if user_profile.profile == 'Reclutador' %}
-								<h2 class="major">Eres reclutador</h2>
-								<h1> List of all Applicants </h1>
-								<table>
-									<tr>
-										<th>Username</th>
-										<th>Nombre</th>
-										<th>Apellido</th>
-										
-									{% for pok in recruiter_list %}
-									<tr>
-										<td>{{pok.user.username}}</td>
-										<td>{{pok.user.first_name}}</td>
-										<td>{{pok.user.last_name}}</td>
-									</tr>
-									{% endfor %}
-									</table>
 								
+								<h2 class="major">Hola! {{user.first_name}}</h2> 
+								{% if user_profile.profile == 'Reclutador' %}
+								<p><a href= " {% url 'home' %}"><strong>Home</strong></a></p>
+								<h2 class="major">Eres reclutador</h2>
+								<h3> Lista de todos los Aplicantes </h3>
+								<p>Las calificaciones de hard skills y soft skills son un promedio de todas las evaluaciones de los aplicantes.</p>
+								<form action = "" method = "post">
+
+									{% csrf_token %}
+																																
+										<tr> 
+											<td style="font-size: 15px; font-family: sans-serif" >Nombre</td>
+											<td> {{ searchapplicantform.first_name }} </td>
+										</tr>																																																	
+									<button type = "submit">Buscar</button>
+									{% if searchapplicantform == 'R'  %}
+									<p>no</p>
+									{% else %}		
+									</form>
+									<table>
+										<tr>
+											<th>Username</th>
+											<th>Nombre</th>
+											<th>Apellido</th>
+											<th>Universidad</th>
+											<th>Último trabajo</th>
+											<th>Descripción</th>
+											<th>Soft Skills</th>
+											<th>Hard Skills</th>
+										{% for applicant in applicant_list2 %}
+										<tr>
+											
+											<td>{{applicant.user__username}}</td>	
+											<td>{{applicant.user__first_name}}</td>
+											<td>{{applicant.user__last_name}}</td>
+											<td>{{applicant.applicant__university}}</td>
+											<td>{{applicant.applicant__lastjob}}</td>
+											<td>{{applicant.applicant__desclastjob}}</td>											
+											<td>{{applicant.soft_skills__avg}}</td>
+											<td>{{applicant.hard_skills__avg}}</td>
+											
+										</tr>
+										{% endfor %}
+									</table>
+									{% endif %}
 							</div>
 								{% else %}
+								<p><a href= " {% url 'home' %}"><strong>Home</strong></a></p>
 								<h2 class="major">Eres aspirante</h2>
 								<h4>¿Quieres actualizar tu información? :D</h4>
 								<h5>Da click aquí</h5>
@@ -57,11 +85,12 @@
 								{% endfor %}	
 								<h4>¿Quieres llenar una opinión? :D</h4>
 								<h5>Da click aquí</h5>
-								<td><a href="{% url 'gradeapplicant' %}"> CALIFICAR</a></td>
-
+								{% for applicant in applicant_list %}
+									<td><a href="{% url 'gradeapplicant' applicant.id %}"> CALIFICAR</a></td>
+								{% endfor %}
 								{% endif %}
 
-                                <p><a href= " {% url 'home' %}"><strong>Home</strong></a></p>
+                               
                             </div>
                             <div class="inner">
                             <form action = "" method = "post">

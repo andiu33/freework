@@ -1,5 +1,6 @@
 from cgitb import text
 from itertools import count
+from pickle import FALSE
 from urllib.request import Request
 from .forms import * 
 from .models import *
@@ -10,6 +11,10 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required 
+from django.db.models import Prefetch, Avg
+from django.db.models import Avg
+from itertools import chain
+
 
 
 
@@ -194,14 +199,28 @@ def inicio(request):
 @login_required
 def homeprofile (request):
     user = request.user
-    recruiter_list = Applicant.objects.all()
-    applicant_list = Applicant.objects.filter(user_id= user)    
+    applicant= Applicant.objects.all() 
+    applicant_list2= GradeApplicant.objects.values('user__username', 'user__first_name', 'user__last_name', 'applicant__university', 'applicant__lastjob', 'applicant__desclastjob').annotate(Avg(('soft_skills'))).annotate(Avg(('hard_skills')))        
+    recruiter_list =  Applicant.objects.all()
+    rg = chain(applicant_list2, recruiter_list)
+    applicant_list = Applicant.objects.filter(user_id= user)
     user_list =User.objects.all()    
     user_request = User.objects.get(username =request.user.username)
-    user_profile =Profile.objects.get(user= user_request)
-    contexto = {'user_data': user_request, 'user_profile': user_profile, 'applicant_list':applicant_list, 'user_list':user_list, 'recruiter_list': recruiter_list}
-    print(user_request.username)
+    user_profile =Profile.objects.get(user= user_request)    
+    searchapplicantform = SearchApplicantForm()
+    contexto = {'user_data': user_request, 'user_profile': user_profile, 'applicant_list':applicant_list, 'user_list':user_list, 'applicant': applicant, 'rg': rg, 'searchapplicantform':searchapplicantform}
+    contexto['applicant_list2']= applicant_list2
+    contexto['empty_search'] = True
+    if request.method == 'POST':
+        searchapplicantform = SearchApplicantForm(request.POST)
+        if searchapplicantform.is_valid():
+            applicant_list2 = GradeApplicant.objects.values('user__username', 'user__first_name', 'user__last_name', 'applicant__university', 'applicant__lastjob', 'applicant__desclastjob').annotate(Avg(('soft_skills'))).annotate(Avg(('hard_skills'))).filter(user__first_name__contains = request.POST.get('first_name'))
+            contexto[applicant_list2] = applicant_list2
+            contexto['empty_search'] = False
     return render(request, 'homeprofile.html', contexto)
+
+   
+
 
 @login_required
 def updateapplicant(request, id):
@@ -220,33 +239,47 @@ def updateapplicant(request, id):
                 {'form': form})
 
 @login_required
-def gradeapplicant (request):
+def gradeapplicant (request, id):
+    applicant = Applicant.objects.get(id = id)
     user_id= request.user
     user = User.objects.get(username =request.user.username)    
     grade_form = GradeApplicantForm()    
-    contexto = {'grade_form': grade_form, 'user': user, 'user_id':user_id}
+    contexto = {'grade_form': grade_form, 'user': user, 'user_id':user_id, 'applicant': applicant}    
     if request.method== 'POST':
         print(request.POST)
         grade_form = GradeApplicantForm(request.POST)
         if grade_form.is_valid():                                    
             grade_form = grade_form.save()
+            grade_form.applicant = applicant
             grade_form.user = user  
-            grade_form.save()                 
+            grade_form.save() 
+
             return redirect ('homeprofile')
         else:
             return redirect ('home')
     return render(request,'gradeapplicant.html',contexto)       
+   
 
 
 @login_required
-def infoapplicant(request, applicant_id):
-    applicant = Applicant.objects.get(pk= applicant_id)
-    applicant_list = Applicant.objects.filter(applicant_id= applicant)
-    contexto = {'applicant_list':applicant_list}
-    return render (request, 'infoapplicant.html', contexto)
+def searchapplicant(request): 
+    searchapplicant_form =SearchApplicantForm()
+    user =User.objects.all()  
+    context ={'searchapplicant_form': searchapplicant_form, 'user': user}
+    context['empty_earch']= True
+    if request.method == 'POST':
+        searchapplicant_form= SearchApplicantForm(request.POST)
+        if searchapplicant_form.is_valid():
+            recruiter_list =Applicant.objects.filter(user_first_name__contains= request.POST.get('first_name'))
+            context['recruiter_list'] = recruiter_list
+            context['empty_search'] = False
+    return render (request, 'infoapplicant.html', context)
 
-
-
+def averagegrade(request):
+    
+    average_ss= GradeApplicant.objects.all().aggregate(Avg('soft_skills'))
+    context ={'average_ss':average_ss}
+    return render (request, )
 
 '''def delete_product (request, product_id):
     product = Product.objects.get(pk=product_id)
