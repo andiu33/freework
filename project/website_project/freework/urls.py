@@ -13,7 +13,7 @@ urlpatterns= [
     path('createrecruiter', views.createrecruiter, name= 'createrecruiter' ),
     path('updateapplicant/<int:id>', views.updateapplicant, name= 'updateapplicant' ),
     path('gradeapplicant/<int:id>', views.gradeapplicant, name= 'gradeapplicant' ),
-    path('infoapplicant', views.searchapplicant, name= 'infoapplicant' ),
+    path('searchapplicant', views.search_applicant, name= 'searchapplicant' ),
     ##path('updateaspirante/<int:updateaspirante_id>',views.update_aspirante, name ='updateaspirante'),   
 
 

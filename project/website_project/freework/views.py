@@ -219,7 +219,19 @@ def homeprofile (request):
             contexto['empty_search'] = False
     return render(request, 'homeprofile.html', contexto)
 
-   
+@login_required  
+def search_applicant (request):
+    searchapplicantform= SearchApplicantForm() 
+    contexto = {'searchapplicantform': searchapplicantform}
+    contexto['empty_search'] = True
+    if request.method == 'POST':
+        searchapplicantform = SearchApplicantForm(request.POST)
+        if searchapplicantform.is_valid():
+            applicant_list2 = GradeApplicant.objects.values('user__username', 'user__first_name', 'user__last_name', 'applicant__university', 'applicant__lastjob', 'applicant__desclastjob').annotate(Avg(('soft_skills'))).annotate(Avg(('hard_skills'))).filter(user__first_name__contains = request.POST.get('first_name'))
+            contexto['applicant_list2'] = applicant_list2
+            contexto['empty_search'] = False
+    
+    return render(request,'searchapplicant.html',contexto)
 
 
 @login_required
@@ -260,26 +272,6 @@ def gradeapplicant (request, id):
     return render(request,'gradeapplicant.html',contexto)       
    
 
-
-@login_required
-def searchapplicant(request): 
-    searchapplicant_form =SearchApplicantForm()
-    user =User.objects.all()  
-    context ={'searchapplicant_form': searchapplicant_form, 'user': user}
-    context['empty_earch']= True
-    if request.method == 'POST':
-        searchapplicant_form= SearchApplicantForm(request.POST)
-        if searchapplicant_form.is_valid():
-            recruiter_list =Applicant.objects.filter(user_first_name__contains= request.POST.get('first_name'))
-            context['recruiter_list'] = recruiter_list
-            context['empty_search'] = False
-    return render (request, 'infoapplicant.html', context)
-
-def averagegrade(request):
-    
-    average_ss= GradeApplicant.objects.all().aggregate(Avg('soft_skills'))
-    context ={'average_ss':average_ss}
-    return render (request, )
 
 '''def delete_product (request, product_id):
     product = Product.objects.get(pk=product_id)

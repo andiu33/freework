@@ -31,20 +31,13 @@
 								{% if user_profile.profile == 'Reclutador' %}
 								<p><a href= " {% url 'home' %}"><strong>Home</strong></a></p>
 								<h2 class="major">Eres reclutador</h2>
-								<h3> Lista de todos los Aplicantes </h3>
+								<h3> Lista de todos los Aplicantes </h3> <p><a href= " {% url 'searchapplicant' %}"><strong>Buscador</strong></a></p>
 								<p>Las calificaciones de hard skills y soft skills son un promedio de todas las evaluaciones de los aplicantes.</p>
 								<form action = "" method = "post">
 
 									{% csrf_token %}
 																																
-										<tr> 
-											<td style="font-size: 15px; font-family: sans-serif" >Nombre</td>
-											<td> {{ searchapplicantform.first_name }} </td>
-										</tr>																																																	
-									<button type = "submit">Buscar</button>
-									{% if searchapplicantform == 'R'  %}
-									<p>no</p>
-									{% else %}		
+												
 									</form>
 									<table>
 										<tr>
@@ -71,7 +64,7 @@
 										</tr>
 										{% endfor %}
 									</table>
-									{% endif %}
+									
 							</div>
 								{% else %}
 								<p><a href= " {% url 'home' %}"><strong>Home</strong></a></p>
