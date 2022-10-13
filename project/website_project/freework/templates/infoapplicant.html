@@ -29,28 +29,7 @@
 								<h2 class="major">Hola! {{user.first_name}}</h2>
 							 
 								<h2 class="major">Eres reclutador</h2>
-								<h1> List of all Applicants </h1>
-								<table>
-									<tr>
-										<th>Username</th>
-										<th>Nombre</th>
-										<th>Apellido</th>
-										<th>Universidad</th>
-
-										
-									{% for pok in recruiter_list %}
-									<tr>
-										<td>{{pok.user.username}}</td>
-										<td>{{pok.user.first_name}}</td>
-										<td>{{pok.user.last_name}}</td>
-										<td>{{pok.university}}</td>
-										<td>{{pok.lastjob}}</td>
-										<td>{{pok.gradeapplicant.soft_skills__avg}}</td>
-										
-									</tr>
-									{% endfor %}
-									</table>
-									</table>
+								
 								
 							</div>
 								

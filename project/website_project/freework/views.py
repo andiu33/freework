@@ -199,23 +199,22 @@ def inicio(request):
 @login_required
 def homeprofile (request):
     user = request.user
+    searchapplicantform= SearchApplicantForm()
     applicant= Applicant.objects.all() 
-    applicant_list2= GradeApplicant.objects.values('user__username', 'user__first_name', 'user__last_name', 'applicant__university', 'applicant__lastjob', 'applicant__desclastjob').annotate(Avg(('soft_skills'))).annotate(Avg(('hard_skills')))        
-    recruiter_list =  Applicant.objects.all()
-    rg = chain(applicant_list2, recruiter_list)
+    ##applicant_list2= GradeApplicant.objects.values('user__username', 'user__first_name', 'user__last_name', 'applicant__university', 'applicant__lastjob', 'applicant__desclastjob').annotate(Avg(('soft_skills'))).annotate(Avg(('hard_skills')))        
+    
     applicant_list = Applicant.objects.filter(user_id= user)
     user_list =User.objects.all()    
     user_request = User.objects.get(username =request.user.username)
     user_profile =Profile.objects.get(user= user_request)    
-    searchapplicantform = SearchApplicantForm()
-    contexto = {'user_data': user_request, 'user_profile': user_profile, 'applicant_list':applicant_list, 'user_list':user_list, 'applicant': applicant, 'rg': rg, 'searchapplicantform':searchapplicantform}
-    contexto['applicant_list2']= applicant_list2
+    contexto = {'user_data': user_request, 'user_profile': user_profile, 'applicant_list':applicant_list, 'user_list':user_list, 'applicant': applicant,  'searchapplicantform':searchapplicantform}
+    ##contexto['applicant_list2']= applicant_list2
     contexto['empty_search'] = True
     if request.method == 'POST':
         searchapplicantform = SearchApplicantForm(request.POST)
         if searchapplicantform.is_valid():
             applicant_list2 = GradeApplicant.objects.values('user__username', 'user__first_name', 'user__last_name', 'applicant__university', 'applicant__lastjob', 'applicant__desclastjob').annotate(Avg(('soft_skills'))).annotate(Avg(('hard_skills'))).filter(user__first_name__contains = request.POST.get('first_name'))
-            contexto[applicant_list2] = applicant_list2
+            contexto['applicant_list2'] = applicant_list2
             contexto['empty_search'] = False
     return render(request, 'homeprofile.html', contexto)
 
