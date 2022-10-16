@@ -1,3 +1,4 @@
+from email.policy import default
 from socket import SIO_KEEPALIVE_VALS
 from typing_extensions import Self
 from unittest.util import _MAX_LENGTH
@@ -82,8 +83,16 @@ class Applicant(models.Model):
     lastjob= models.CharField(max_length=255,blank=False,null=True)
     desclastjob = models.CharField(max_length=255,blank=False,null=True)
     phone = models.PositiveIntegerField(blank = True, null = True)
+    
+class Sentiment(models.Model):
+    text_to_analyze= models.CharField(max_length=255)
+    analyze_save = models.CharField(max_length=255)
+    def __str__ (self):
+            return 'el sentimiento es %s %s' % (self.text_analyzed)
+
 
 class GradeApplicant(models.Model):
+    sentiment = models.OneToOneField(Sentiment, on_delete =models.CASCADE, null =True) 
     user= models.ForeignKey(User, on_delete =models.CASCADE, null =True)
     first_name =  models.CharField(max_length=255,blank=False,null=True)
     last_name =  models.CharField(max_length=255,blank=False,null=True)
@@ -91,10 +100,14 @@ class GradeApplicant(models.Model):
     soft_skills = models.PositiveIntegerField(blank = True, null = True)
     hard_skills = models.PositiveIntegerField(blank = True, null = True)
     applicant = models.ForeignKey(Applicant, on_delete =models.CASCADE, null =True)
+    comment_to_analyze = models.CharField(max_length=255, default = '1')
+    comment_save = models.CharField(max_length=255, default = '1')
     def __str__(self):
         return '%s' %(self.soft_skills)
 
 class AllApplicant(models.Model):
     user= models.ForeignKey(User, on_delete =models.CASCADE, null =True) 
     applicant= models.ForeignKey(Applicant, on_delete =models.CASCADE, null =True)  
-    
+
+
+        

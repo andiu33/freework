@@ -61,20 +61,18 @@
 												<th>Universidad</th>
 												<th>Último trabajo</th>
 												<th>Descripción</th>
-												<th>Soft Skills</th>
-												<th>Hard Skills</th>
+												
 											{% for applicant in applicant_list2 %}
 											<tr>
 												
 												<td>{{applicant.user__username}}</td>	
 												<td>{{applicant.user__first_name}}</td>
 												<td>{{applicant.user__last_name}}</td>
-												<td>{{applicant.applicant__university}}</td>
-												<td>{{applicant.applicant__lastjob}}</td>
-												<td>{{applicant.applicant__desclastjob}}</td>											
-												<td>{{applicant.soft_skills__avg}}</td>
-												<td>{{applicant.hard_skills__avg}}</td>
+												<td>{{applicant.university}}</td>
+												<td>{{applicant.lastjob}}</td>
+												<td>{{applicant.desclastjob}}</td>											
 												
+												<td><a href="{% url 'uniqueapplicant' applicant.id %}"> VER</a></td>
 											</tr>
 											{% endfor %}
 										</table>

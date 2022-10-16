@@ -25,25 +25,30 @@
 
 						<!-- Panel (Spotlight) -->
 						<section class="panel color1">
-							<div class="inner">
-								<h2 class="major">¡Regístrate!</h2>
-								<p>FREEWORK te ayuda! Llena los siguientes campos para encontrar trabajo o candidatos lo más rápido posible :D</p>
-                                <p><a href= " {% url 'home' %}"><strong>Inicio</strong></a></p>
-                            </div>
-                            <div class="inner">
-                            <form action = "" method = "post">
-
-                                {% csrf_token %}
-																															
-									<tr> 
-										<td style="font-size: 15px; font-family: sans-serif" >Califica a {{user.first_name}}</td>
-										<td> {{grade_form}} </td>
-										<td> {{sentimentform.text_to_analyze}} </td>
-									</tr>
-									
-                                </table>
-								<button type = "submit">Calificar</button>
-
+							<div class="major">
+								
+								
+										<p><a href= " {% url 'home' %}"><strong>Home</strong></a></p>
+										
+										
+												
+												
+												
+											    <table>
+                                                    <tr>
+                                                        <th>Comentario</th>
+                                                        
+                                                        
+                                                    {% for comment in sentiment_list %}
+                                                    <tr>
+                                                        
+                                                        <td>{{comment.sentiment__text_to_analyze}}</td>	
+                                                        
+                                                    </tr>
+                                                    {% endfor %}
+                                                </table>
+                                
+                                <p>    </p>
                             </form>
                             <br>
                             </div>

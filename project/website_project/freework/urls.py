@@ -14,6 +14,10 @@ urlpatterns= [
     path('updateapplicant/<int:id>', views.updateapplicant, name= 'updateapplicant' ),
     path('gradeapplicant/<int:id>', views.gradeapplicant, name= 'gradeapplicant' ),
     path('searchapplicant', views.search_applicant, name= 'searchapplicant' ),
+    path('uniqueapplicant/<int:applicant_id>', views.uniqueapplicant, name= 'uniqueapplicant' ),
+    path('sentiment', views.sentiment, name= 'sentiment' ),
+    path('comment/<int:applicant_id>', views.comment, name= 'comment' ),
+
     ##path('updateaspirante/<int:updateaspirante_id>',views.update_aspirante, name ='updateaspirante'),   
 
 

@@ -8,12 +8,17 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
+from azure.core.credentials import AzureKeyCredential
+from azure.ai.textanalytics import TextAnalyticsClient
+
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required 
 from django.db.models import Prefetch, Avg
 from django.db.models import Avg
 from itertools import chain
+import requests, uuid, json
+
 
 
 
@@ -213,7 +218,8 @@ def homeprofile (request):
     if request.method == 'POST':
         searchapplicantform = SearchApplicantForm(request.POST)
         if searchapplicantform.is_valid():
-            applicant_list2 = GradeApplicant.objects.values('user__username', 'user__first_name', 'user__last_name', 'applicant__university', 'applicant__lastjob', 'applicant__desclastjob').annotate(Avg(('soft_skills'))).annotate(Avg(('hard_skills'))).filter(user__first_name__contains = request.POST.get('first_name'))
+            applicant_list2 = Applicant.objects.values('user__username', 'user__first_name', 'user__last_name', 'university', 'lastjob', 'desclastjob', 'id').filter(user__first_name__contains = request.POST.get('first_name'))
+            ##applicant_list2 = GradeApplicant.objects.values('user__username', 'user__first_name', 'user__last_name', 'applicant__university', 'applicant__lastjob', 'applicant__desclastjob', 'id').annotate(Avg(('soft_skills'))).annotate(Avg(('hard_skills'))).filter(user__first_name__contains = request.POST.get('first_name'))
             contexto['applicant_list2'] = applicant_list2
             contexto['empty_search'] = False
     return render(request, 'homeprofile.html', contexto)
@@ -249,65 +255,125 @@ def updateapplicant(request, id):
                 'updateapplicant.html',
                 {'form': form})
 
+def uniqueapplicant (request, applicant_id):
+    user = User.objects.all()
+    sentiment = Sentiment.objects.all()
+    applicant = Applicant.objects.get(pk = applicant_id) 
+    gradeapplicant = GradeApplicant.objects.get(pk = applicant_id)
+    applicant_list = Applicant.objects.values('user__username', 'user__first_name', 'user__last_name','user__email', 'phone' ,'lastjob','desclastjob', 'university').filter(id = applicant_id)
+    gradeapplicant_list = GradeApplicant.objects.values('soft_skills', 'hard_skills', 'sentiment__analyze_save').filter(applicant__id = applicant_id)
+    gradeavg= GradeApplicant.objects.values('user__username').annotate(Avg(('soft_skills'))).annotate(Avg(('hard_skills'))).filter(applicant__id = applicant_id)         
+    contexto = {'applicant':applicant, 'user': user, 'gradeapplicant': gradeapplicant, 'sentiment': sentiment}
+    contexto['applicant_list'] = applicant_list
+    contexto['gradeapplicant_list'] = gradeapplicant_list
+    contexto['gradeavg'] = gradeavg
+    return render(request,'uniqueapplicant.html',contexto) 
+
 @login_required
 def gradeapplicant (request, id):
     applicant = Applicant.objects.get(id = id)
     user_id= request.user
     user = User.objects.get(username =request.user.username)    
-    grade_form = GradeApplicantForm()    
-    contexto = {'grade_form': grade_form, 'user': user, 'user_id':user_id, 'applicant': applicant}    
+    grade_form = GradeApplicantForm() 
+    sentimentform = SentimentForm()
+    sentiment = Sentiment.objects
+    contexto = {'grade_form': grade_form, 'user': user, 'user_id':user_id, 'applicant': applicant, 'sentimentform':sentimentform, 'sentiment': sentiment}    
     if request.method== 'POST':
-        print(request.POST)
         grade_form = GradeApplicantForm(request.POST)
+        sentimentform = SentimentForm(request.POST)
+        print(request.POST)
+        print(request.POST.get('text_to_analyze'))
+        # Add your key and endpoint
+        credential = AzureKeyCredential("8b347822bb32465693ae44970d70ea81")
+        endpoint = "https://dsccognitivefreework.cognitiveservices.azure.com/"
+
+        text_analytics_client= TextAnalyticsClient(endpoint,credential)
+        documents= [
+            request.POST.get('text_to_analyze')
+        ]
+
+        response = text_analytics_client.analyze_sentiment(documents, language = "es")
+        result = [doc for doc in response if not doc.is_error]
+        print(result)
+        
+        for doc in result:
+            print(f"Overrall sentiment: {doc.sentiment}")
+            print(
+                f"Scores:positive ={doc.confidence_scores.positive};"
+                f"neutral={doc.confidence_scores.neutral};"
+                f"negative={doc.confidence_scores.negative}\n;"
+            )
+        sentiment = sentimentform.save()
+        sentiment.analyze_save = doc.sentiment
+        sentiment.save()
+        sentimentform = sentimentform.save()
+        contexto['sentimentresult'] = doc.sentiment
         if grade_form.is_valid():                                    
             grade_form = grade_form.save()
             grade_form.applicant = applicant
             grade_form.user = user  
+            grade_form.sentiment = sentiment
             grade_form.save() 
 
             return redirect ('homeprofile')
         else:
             return redirect ('home')
     return render(request,'gradeapplicant.html',contexto)       
-   
 
 
-'''def delete_product (request, product_id):
-    product = Product.objects.get(pk=product_id)
-    data_context = {'product':product}
+def comment (request, gradeapplicant_id):
+    applicant = GradeApplicant.objects.get(pk = gradeapplicant_id)
+    sentiment_list = GradeApplicant.objects.values('sentiment__text_to_analyze').filter(sentiment__id = gradeapplicant_id) 
+    contexto = {'applicant':applicant}
+    contexto['sentiment_list'] =  sentiment_list
+    
+    return render(request,'comment.html',contexto)       
+
+
+def sentiment (request):
+    sentimentform = SentimentForm()
+    sentiment = Sentiment.objects
+    context = {'sentimentform':sentimentform, 'sentiment': sentiment}
+
     if request.method == 'POST':
-        print (request.POST)
-        if 'yes' in request.POST:
-            product.deleted_date = timezone.now()
-            product.save()
-            return redirect('product')
-        elif 'no' in request.POST:
-            return redirect('product')
-    return render(request,'delete_product.html',data_context)'''
 
-'''def update_aspirante(request, aspiranteinfo_id):
-    aspiranteinfo = AspiranteInfo.objects.get(pk= aspiranteinfo_id)'''
+        sentimentform = SentimentForm(request.POST)
+        
+        print(request.POST)
+        print(request.POST.get('text_to_analyze'))
+        # Add your key and endpoint
+        credential = AzureKeyCredential("8b347822bb32465693ae44970d70ea81")
+        endpoint = "https://dsccognitivefreework.cognitiveservices.azure.com/"
+
+        text_analytics_client= TextAnalyticsClient(endpoint,credential)
+        documents= [
+            request.POST.get('text_to_analyze')
+        ]
+
+        response = text_analytics_client.analyze_sentiment(documents, language = "es")
+        result = [doc for doc in response if not doc.is_error]
+        print(result)
+        
+        for doc in result:
+            print(f"Overrall sentiment: {doc.sentiment}")
+            print(
+                f"Scores:positive ={doc.confidence_scores.positive};"
+                f"neutral={doc.confidence_scores.neutral};"
+                f"negative={doc.confidence_scores.negative}\n;"
+            )
+        sentiment = sentimentform.save()
+        sentiment.analyze_save = doc.sentiment
+        sentiment.save()
+        sentimentform = sentimentform.save()
+        context['sentimentresult'] = doc.sentiment
+        
+    return render(request,'sentiment.html',context)
+
     
 
 
 
-'''def update_pokemon_pokedexx(request,pokemon_id):
-    pokemons = Pokemon.objects.get(pk=pokemon_id)
-    formulario = EditPokemonForms()
-    data_result = {'pokemon':pokemons}
-    data_result ['formulario']= formulario
-    print(pokemons)
 
-    if request.method == 'POST':
-        formulario = EditPokemonForms(request.POST,instance = pokemons)
-        print(request.POST)
-        if formulario.is_valid():
-            formulario.save()
-            data_result['message'] = "Pokemon actualizado"
-        else:
-            data_result['message'] = "Pokemon no actualizado"
-
-    return render (request,'pokedexx/pokedexx_update.html',data_result)'''
 
 
 
