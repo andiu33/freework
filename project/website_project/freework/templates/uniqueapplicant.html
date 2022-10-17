@@ -69,31 +69,41 @@
 												<td>{{applicant.hard_skills__avg}}</td>
 											</tr>
 											{% endfor %}
+									
 										</table>
 										<h2>Lista de sus calificaciones</h2>
+									<div style="text-align:center;">
 										<table>
+										
 											<tr>
-
-												<th>Soft Skills</th>
-												<th>Hard Skills</th>
-												<th>Comentario</th>
-												<th>Ver comentario</th>
-											{% for applicant in gradeapplicant_list %}
+												<td>Nombre del calificador</td>
+												<td>Soft Skills</td>
+												<td>Hard Skills</td>
+												<td>Sentimiento del comentario</td>
+												<td>Comentario</td>
 											</tr>
+											{% for applicant in gradeapplicant_list %}
+											
 											<tr>
+												<td>{{applicant.first_name}}</td>
 												<td>{{applicant.soft_skills}}</td>
 												<td>{{applicant.hard_skills}}</td>
 												{% if applicant.sentiment__analyze_save == 'positive' %}
-												<th> &#128515; </th>
+												<td> &#128515; </td>
 												{% elif applicant.sentiment__analyze_save == 'neutral' %}
-												<th> &#128528; </th>
+												<td> &#128528; </td>
 												{% else %}
-												<th> &#128534; </th>
+												<td> &#128534; </td>
 												{% endif %}
-												<td><a href="{% url 'comment' gradeapplicant.id %}"> VER</a></td>
+												<td><details>
+													<summary>Ver comentario</summary>
+													{{applicant.sentiment__text_to_analyze}}
+													</details>	</td>											
 											</tr>
 											{% endfor %}
-										</table>                    
+										</table> 
+									</div> 
+										                  
                                 <br>
                                 <p>    </p>
                             </form>

@@ -265,8 +265,9 @@ def uniqueapplicant (request, applicant_id):
     sentiment = Sentiment.objects.all()
     applicant = Applicant.objects.get(pk = applicant_id) 
     gradeapplicant = GradeApplicant.objects.get(pk = applicant_id)
+    
     applicant_list = Applicant.objects.values('user__username', 'user__first_name', 'user__last_name','user__email', 'phone' ,'lastjob','desclastjob', 'university').filter(id = applicant_id)
-    gradeapplicant_list = GradeApplicant.objects.values('soft_skills', 'hard_skills', 'sentiment__analyze_save').filter(applicant__id = applicant_id)
+    gradeapplicant_list = GradeApplicant.objects.values('first_name','soft_skills', 'hard_skills', 'sentiment__analyze_save', 'sentiment__text_to_analyze').filter(applicant__id = applicant_id)
     gradeavg= GradeApplicant.objects.values('user__username').annotate(Avg(('soft_skills'))).annotate(Avg(('hard_skills'))).filter(applicant__id = applicant_id)         
     contexto = {'applicant':applicant, 'user': user, 'gradeapplicant': gradeapplicant, 'sentiment': sentiment}
     contexto['applicant_list'] = applicant_list
@@ -325,10 +326,10 @@ def gradeapplicant (request, id):
             return redirect ('home')
     return render(request,'gradeapplicant.html',contexto)       
 
-def comment_detail (request, gradeapplicant_id):
-    gradeapplicant = GradeApplicant.objects.get(pk=gradeapplicant_id)
-    comment_detail_list = GradeApplicant.objects.values('sentiment__text_to_analyze').filter(pk =gradeapplicant_id)
-    comment_detail_list2 = Sentiment.objects.values('text_to_analyze').filter(pk =gradeapplicant_id)
+def comment_detail (request, sentiment_id):
+    gradeapplicant = GradeApplicant.objects.get(pk=sentiment_id)
+    comment_detail_list = GradeApplicant.objects.values('sentiment__text_to_analyze').filter(pk = sentiment_id)
+    comment_detail_list2 = Sentiment.objects.values('text_to_analyze').filter(pk =sentiment_id)
     context= {'gradeapplicant': gradeapplicant}
     context['comment_detail_list'] = comment_detail_list
     context['comment_detail_list2'] = comment_detail_list2
