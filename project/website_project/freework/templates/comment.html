@@ -39,10 +39,10 @@
                                                         <th>Comentario</th>
                                                         
                                                         
-                                                    {% for comment in sentiment_list %}
+                                                    {% for comment in comment_detail_list2 %}
                                                     <tr>
                                                         
-                                                        <td>{{comment.sentiment__text_to_analyze}}</td>	
+                                                        <td>{{comment.text_to_analyze}}</td>	
                                                         
                                                     </tr>
                                                     {% endfor %}

@@ -100,8 +100,6 @@ class GradeApplicant(models.Model):
     soft_skills = models.PositiveIntegerField(blank = True, null = True)
     hard_skills = models.PositiveIntegerField(blank = True, null = True)
     applicant = models.ForeignKey(Applicant, on_delete =models.CASCADE, null =True)
-    comment_to_analyze = models.CharField(max_length=255, default = '1')
-    comment_save = models.CharField(max_length=255, default = '1')
     def __str__(self):
         return '%s' %(self.soft_skills)
 

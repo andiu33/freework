@@ -113,6 +113,8 @@ def createapplicant (request):
         user_form = CreateUserForm(request.POST)
         profile_form = ProfileForm(request.POST)
         applicant_form = ApplicantForm(request.POST)
+        
+        
         if user_form.is_valid() and profile_form.is_valid() and applicant_form.is_valid():                        
             user = user_form.save()
             profile = profile_form.save()
@@ -150,6 +152,7 @@ def createrecruiter (request):
             profile.user = user
             profile.save() 
             recruiter.save()  
+                   
             return redirect ('login')
         else:
             print(user_form.errors)
@@ -322,14 +325,16 @@ def gradeapplicant (request, id):
             return redirect ('home')
     return render(request,'gradeapplicant.html',contexto)       
 
+def comment_detail (request, gradeapplicant_id):
+    gradeapplicant = GradeApplicant.objects.get(pk=gradeapplicant_id)
+    comment_detail_list = GradeApplicant.objects.values('sentiment__text_to_analyze').filter(pk =gradeapplicant_id)
+    comment_detail_list2 = Sentiment.objects.values('text_to_analyze').filter(pk =gradeapplicant_id)
+    context= {'gradeapplicant': gradeapplicant}
+    context['comment_detail_list'] = comment_detail_list
+    context['comment_detail_list2'] = comment_detail_list2
 
-def comment (request, gradeapplicant_id):
-    applicant = GradeApplicant.objects.get(pk = gradeapplicant_id)
-    sentiment_list = GradeApplicant.objects.values('sentiment__text_to_analyze').filter(sentiment__id = gradeapplicant_id) 
-    contexto = {'applicant':applicant}
-    contexto['sentiment_list'] =  sentiment_list
-    
-    return render(request,'comment.html',contexto)       
+    return render(request,'comment.html',context) 
+
 
 
 def sentiment (request):

@@ -16,7 +16,7 @@ urlpatterns= [
     path('searchapplicant', views.search_applicant, name= 'searchapplicant' ),
     path('uniqueapplicant/<int:applicant_id>', views.uniqueapplicant, name= 'uniqueapplicant' ),
     path('sentiment', views.sentiment, name= 'sentiment' ),
-    path('comment/<int:applicant_id>', views.comment, name= 'comment' ),
+    path('comment/<int:gradeapplicant_id>', views.comment_detail, name= 'comment' ),
 
     ##path('updateaspirante/<int:updateaspirante_id>',views.update_aspirante, name ='updateaspirante'),   
 
