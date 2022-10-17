@@ -27,7 +27,8 @@
                         <!-- Panel (Spotlight) -->
                         <section class="panel color1">
                             <div class="inner">
-                                <i class="fa-solid fa-house"></i><p><a href= " {% url 'home' %}"><strong>Home</strong></a></p>
+                                <i class="fa-solid fa-house"></i><p><a href= " {% url 'loggedhome' %}"><strong>Home</strong></a></p>
+                                <p><a href=" {% url 'logout' %}"><strong><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</strong></a></p>
                                 <h2 class="major">Hola! {{user.first_name}}</h2>
                                 {% if user_profile.profile == 'Reclutador' %}
                                         <h4 class="major">Eres reclutador</h4>

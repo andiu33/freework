@@ -12,6 +12,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="{% static 'assets/css/main.css'  %}" />
 		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+		<script src="https://kit.fontawesome.com/644708f04c.js" crossorigin="anonymous"></script>
 	</head>
 	<body class="is-preload">
 
@@ -20,102 +21,110 @@
 
 				<!-- Wrapper -->
 					<div id="wrapper">
-
+						
+ 
+                                           
+                            </section> 
 						
 
-						<!-- Panel (Spotlight) -->
-						<section class="panel color1">
-							<div class="major">
-								
-								
-										<p><a href= " {% url 'home' %}"><strong>Home</strong></a></p>
-										
-										<h2> Informacion del aspirante:  </h2> 										
-										<table>
-											<tr>
-												
-												<th>Nombre</th>
-												<th>Apellido</th>
-												<th>Email</th>
-												<th>Celular</th>
-												<th>Universidad</th>
-												<th>Último trabajo</th>
-												<th>Descripción</th>
-											{% for applicant in applicant_list %}
-                                            </tr>
-											<tr>
-												
-																						
-												<td>{{applicant.user__first_name}}</td>
-												<td>{{applicant.user__last_name}}</td>
-												<td>{{applicant.user__email}}</td>
-												<td>{{applicant.phone}}</td>
-												<td>{{applicant.university}}</td>
-												<td>{{applicant.lastjob}}</td>
-												<td>{{applicant.desclastjob}}</td>
-
-												
-											</tr>
-											{% endfor %}
-										<h4>Promedio de sus calificaciones</h4>
-										<table>
-											<tr>
-												<th>Soft Skills</th>
-												<th>Hard Skills</th>
-												{% for applicant in gradeavg %}
-											</tr>
-											<tr>
-												<td>{{applicant.soft_skills__avg}}</td>
-												<td>{{applicant.hard_skills__avg}}</td>
-											</tr>
-											{% endfor %}
-									
-										</table>
-										<h2>Lista de sus calificaciones</h2>
-									<div style="text-align:center;">
-										<table>
-										
-											<tr>
-												<td>Nombre del calificador</td>
-												<td>Soft Skills</td>
-												<td>Hard Skills</td>
-												<td>Sentimiento del comentario</td>
-												<td>Comentario</td>
-											</tr>
-											{% for applicant in gradeapplicant_list %}
+										<!-- Panel (Spotlight) -->
+										<section class="panel color1">
+											<div class="major">
+												<p> '</p>
 											
-											<tr>
-												<td>{{applicant.first_name}}</td>
-												<td>{{applicant.soft_skills}}</td>
-												<td>{{applicant.hard_skills}}</td>
-												{% if applicant.sentiment__analyze_save == 'positive' %}
-												<td> &#128515; </td>
-												{% elif applicant.sentiment__analyze_save == 'neutral' %}
-												<td> &#128528; </td>
-												{% else %}
-												<td> &#128534; </td>
-												{% endif %}
-												<td><details>
-													<summary>Ver comentario</summary>
-													{{applicant.sentiment__text_to_analyze}}
-													</details>	</td>											
-											</tr>
-											{% endfor %}
-										</table> 
-									</div> 
-										                  
-                                <br>
-                                <p>    </p>
-                            </form>
-                            <br>
-                            </div>
-								
-							</div>
-							<div class="panel color 1" data-position="top left">
-								<img src="images/pic02.jpg" alt="" />
-							</div>
-						</section>	
-						
+
+												<center><i class="fa-solid fa-house"></i><p><a href= " {% url 'home' %}"><strong>Home</strong></a></p></center>
+														
+														<center><h3><i class="fa-solid fa-info"></i>nformacion del aspirante:  </h3>   </center>										
+														<table>
+															<tr>
+																
+																<th>Nombre</th>
+																<th>Apellido</th>
+																<th>Email</th>
+																<th>Celular</th>
+																<th>Universidad</th>
+																<th>Último trabajo</th>
+																<th>Descripción</th>
+															{% for applicant in applicant_list %}
+															</tr>
+															<tr>
+																
+																										
+																<td>{{applicant.user__first_name}}</td>
+																<td>{{applicant.user__last_name}}</td>
+																<td>{{applicant.user__email}}</td>
+																<td>{{applicant.phone}}</td>
+																<td>{{applicant.university}}</td>
+																<td>{{applicant.lastjob}}</td>
+																<td>{{applicant.desclastjob}}</td>
+
+																
+															</tr>
+															{% endfor %}
+														</table>
+														<center><h3><i class="fa-solid fa-check-to-slot"></i>   Promedio de sus calificaciones</h3></center>
+													<div style="text-align:center;">
+														<table>
+															<tr>
+																<td><i class="fa-solid fa-head-side-cough"></i></i> Soft Skills</td>
+																<td><i class="fa-solid fa-head-side-virus"></i> Hard Skills</td>
+
+																{% for applicant in gradeavg %}
+															</tr>
+															<tr>
+																<td>{{applicant.soft_skills__avg}}</td>
+																<td>{{applicant.hard_skills__avg}}</td>
+															</tr>
+															{% endfor %}
+													
+														</table>
+													</div> 
+														<center><h3><i class="fa-solid fa-list-check"></i>  Lista de sus calificaciones</h3></center>
+													<div style="text-align:center;">
+														<table>
+														
+															<tr>
+																<td>Nombre del calificador</td>
+																<td>Soft Skills</td>
+																<td>Hard Skills</td>
+																<td>Sentimiento del comentario</td>
+																<td>Comentario</td>
+															</tr>
+															{% for applicant in gradeapplicant_list %}
+															
+															<tr>
+																<td>{{applicant.first_name}}</td>
+																<td>{{applicant.soft_skills}}</td>
+																<td>{{applicant.hard_skills}}</td>
+																{% if applicant.sentiment__analyze_save == 'positive' %}
+																<td> &#128515; </td>
+																{% elif applicant.sentiment__analyze_save == 'neutral' %}
+																<td> &#128528; </td>
+																{% else %}
+																<td> &#128534; </td>
+																{% endif %}
+																<td><details>
+																	<summary>Ver comentario</summary>
+																	{{applicant.sentiment__text_to_analyze}}
+																	</details>	</td>											
+															</tr>
+															{% endfor %}
+														</table> 
+													</div> 
+																		
+												<br>
+												<p>    </p>
+											</form>
+											<br>
+											</div>
+												
+											</div>
+											<div class="panel color 1" data-position="top left">
+												<img src="images/pic02.jpg" alt="" />
+											</div>
+										</section>	
+												
 						
 		<!-- Scripts -->
 			<script src="{% static 'assets/js/jquery.min.js' %}"></script>

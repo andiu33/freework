@@ -259,7 +259,7 @@ def updateapplicant(request, id):
     return render(request,
                 'updateapplicant.html',
                 {'form': form})
-
+@login_required
 def uniqueapplicant (request, applicant_id):
     user = User.objects.all()
     sentiment = Sentiment.objects.all()
@@ -325,7 +325,8 @@ def gradeapplicant (request, id):
         else:
             return redirect ('home')
     return render(request,'gradeapplicant.html',contexto)       
-
+    
+@login_required
 def comment_detail (request, sentiment_id):
     gradeapplicant = GradeApplicant.objects.get(pk=sentiment_id)
     comment_detail_list = GradeApplicant.objects.values('sentiment__text_to_analyze').filter(pk = sentiment_id)
@@ -378,8 +379,8 @@ def sentiment (request):
     return render(request,'sentiment.html',context)
 
     
-
-
+def loggedhome(request):
+    return render(request, 'loggedhome.html', {})
 
 
 
