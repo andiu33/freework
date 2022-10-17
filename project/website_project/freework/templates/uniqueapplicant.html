@@ -85,8 +85,10 @@
 												<td>{{applicant.hard_skills}}</td>
 												{% if applicant.sentiment__analyze_save == 'positive' %}
 												<th> &#128515; </th>
+												{% elif applicant.sentiment__analyze_save == 'neutral' %}
+												<th> &#128528; </th>
 												{% else %}
-												<th> &#128534;</th>
+												<th> &#128534; </th>
 												{% endif %}
 												<td><a href="{% url 'comment' gradeapplicant.id %}"> VER</a></td>
 											</tr>

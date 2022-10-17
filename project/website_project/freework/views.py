@@ -113,10 +113,6 @@ def createapplicant (request):
         user_form = CreateUserForm(request.POST)
         profile_form = ProfileForm(request.POST)
         applicant_form = ApplicantForm(request.POST)
-        print(user_form.errors)
-        print(profile_form.errors)
-        print(applicant_form.errors)
-        
         if user_form.is_valid() and profile_form.is_valid() and applicant_form.is_valid():                        
             user = user_form.save()
             profile = profile_form.save()
@@ -128,6 +124,9 @@ def createapplicant (request):
             applicant.save()         
             return redirect ('login')
         else:
+            print(user_form.errors)
+            print(profile_form.errors)
+            print(applicant_form.errors)
             return redirect ('createapplicant')
     return render(request,'createapplicant.html',contexto)    
 
@@ -150,9 +149,12 @@ def createrecruiter (request):
             profile.profile = 'Reclutador'           
             profile.user = user
             profile.save() 
-            recruiter.save()         
+            recruiter.save()  
             return redirect ('login')
         else:
+            print(user_form.errors)
+            print(profile_form.errors)
+            print(recruiter_form.errors)           
             return redirect ('createrecruiter')
     return render(request,'createrecruiter.html',contexto)    
 
