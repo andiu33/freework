@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-@05&w_w^l1jd%*41w(t(3vf9)xv0x6blm)bcy!@$yaevc_biff
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -127,14 +127,13 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'freework/static'),
 ]
 
+EMAIL_HOST = 'smtp.googlemail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ami.ascarragaflores@gmail.com'
+EMAIL_HOST_PASSWORD = 'pthwnewwtetnygjs'
+EMAIL_USE_TLS = True
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-EMAIL_USE_TLS=True
-EMAIL_HOST = 'smpt.gmail.com'
-EMAIL_PORT =521
-EMAIL_HOST_USER= 'free.work.notificaciones@gmail.com'
-EMAIL_HOST_PASSWORD= 'free.work1'
-EMAIL_BACKEND = 'django.core.mail.backends.smpt.EmailBackend'

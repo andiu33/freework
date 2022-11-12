@@ -100,8 +100,14 @@ class GradeApplicant(models.Model):
     soft_skills = models.PositiveIntegerField(blank = True, null = True)
     hard_skills = models.PositiveIntegerField(blank = True, null = True)
     applicant = models.ForeignKey(Applicant, on_delete =models.CASCADE, null =True)
+    random = models.CharField(max_length = 13, blank = True, null = True)
     def __str__(self):
         return '%s' %(self.soft_skills)
+
+class EmailUser(models.Model):
+    email_user = models.CharField(max_length=100)
+    code = models.CharField(max_length = 13, blank =True, null = True)
+
 
 class AllApplicant(models.Model):
     user= models.ForeignKey(User, on_delete =models.CASCADE, null =True) 

@@ -18,6 +18,10 @@ urlpatterns= [
     path('sentiment', views.sentiment, name= 'sentiment' ),
     path('comment/<int:sentiment_id>', views.comment_detail, name= 'comment' ),
     path('loggedhome/', views.loggedhome, name='loggedhome'),
+    path('emails',views.emails, name= 'emails'),
+    path('validatecode',views.validatecode, name= 'validatecode'),
+
+
     ##path('updateaspirante/<int:updateaspirante_id>',views.update_aspirante, name ='updateaspirante'),   
 
 

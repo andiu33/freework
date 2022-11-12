@@ -18,7 +18,12 @@ from django.db.models import Prefetch, Avg
 from django.db.models import Avg
 from itertools import chain
 import requests, uuid, json
-
+import string
+import random
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
+from django.conf import settings
+import requests, uuid
 
 
 
@@ -26,6 +31,8 @@ import requests, uuid, json
 ##from website_project.freework.forms import CreateUsuarioForm, UpdateUsuarioForm
 
 # Create your views here.
+def error_404(request,exception):
+    return render(request,'404.html',{})
 
 def home(request):
     return render(request, 'home.html', {})
@@ -383,7 +390,31 @@ def loggedhome(request):
     return render(request, 'loggedhome.html', {})
 
 
+def emails(request):
+    emailform = SendEmailForm()
+    context = {'emailform': emailform}    
+    if request.method == 'POST':
+        print(request.POST.get('email_user'))
+        number_of_strings = 1
+        length_of_string = 12
+        for x in range(number_of_strings):
+            code= (''.join(random.choice(string.ascii_letters + string.digits) for _ in range(length_of_string)))
+        context2 = {'email_user':request.POST.get('email_user'), 'code': code}
+        email_to_send = request.POST.get('email_user')
+        
+        template = get_template('emailtemplate.html')
+        content = template.render(context2)
+        
+        email = EmailMultiAlternatives(
+            'FREEWORK',
+            'Califica a tu compañer@',
+            settings.EMAIL_HOST_USER,
+            [email_to_send],
+        )        
+        email.attach_alternative(content,'text/html')
+        email.send()
+        #return render(request, 'mail.html',context)        
+    return render(request, 'mail.html',context)
 
-
-
-
+def validatecode(request):
+    return render(request, 'validatecode.html', {})

@@ -1,7 +1,7 @@
 from inspect import ArgSpec
 from socket import fromshare
 from django import forms
-from .models import AllApplicant, Applicant, GradeApplicant,  Profile, Recruiter, Sentiment
+from .models import AllApplicant, Applicant, GradeApplicant,  Profile, Recruiter, Sentiment, EmailUser
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import Textarea 
 from django.contrib.auth.models import User
@@ -83,3 +83,9 @@ class SentimentForm(forms.ModelForm):
         model = Sentiment
         widgets = {'text_to_analyze': Textarea(attrs= {'cols': 40, 'rows': 5})}
         fields = ['text_to_analyze']
+
+
+class SendEmailForm(forms.ModelForm):
+    class Meta:
+        model= EmailUser
+        fields=['email_user', 'code']
