@@ -61,20 +61,16 @@
                                                 <th>Username</th>
                                                 <th>Nombre</th>
                                                 <th>Apellido</th>
-                                                <th>Universidad</th>
-                                                <th>Último trabajo</th>
-                                                <th>Descripción</th>
-												<th>Ver perfil</th>
+                                                <th>Da click aquí</th>
+                                                
                                                
                                             {% for user in applicant_list2 %}
                                             <tr>
                                                
-                                                <td>{{user.user__username}}</td>  
-                                                <td>{{user.user__first_name}}</td>
-                                                <td>{{user.user__last_name}}</td>
-                                                <td>{{user.university}}</td>
-                                                <td>{{user.lastjob}}</td>
-                                                <td>{{user.desclastjob}}</td>    
+                                                <td>{{user.username}}</td>  
+                                                <td>{{user.first_name}}</td>
+                                                <td>{{user.last_name}}</td>
+                                                    
 
 												<td><a href="{% url 'uniqueapplicant' user.id %}"> VER </a></td>                                      
                                                

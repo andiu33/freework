@@ -46,18 +46,18 @@
 																<th>Universidad</th>
 																<th>Último trabajo</th>
 																<th>Descripción</th>
-															{% for applicant in applicant_list %}
+															{% for user in applicant_list %}
 															</tr>
 															<tr>
 																
 																										
-																<td>{{applicant.user__first_name}}</td>
-																<td>{{applicant.user__last_name}}</td>
-																<td>{{applicant.user__email}}</td>
-																<td>{{applicant.phone}}</td>
-																<td>{{applicant.university}}</td>
-																<td>{{applicant.lastjob}}</td>
-																<td>{{applicant.desclastjob}}</td>
+																<td>{{user.user__first_name}}</td>
+																<td>{{user.user__last_name}}</td>
+																<td>{{user.user__email}}</td>
+																<td>{{user.phone}}</td>
+																<td>{{user.university}}</td>
+																<td>{{user.lastjob}}</td>
+																<td>{{user.desclastjob}}</td>
 
 																
 															</tr>
@@ -70,11 +70,11 @@
 																<td><i class="fa-solid fa-head-side-cough"></i></i> Soft Skills</td>
 																<td><i class="fa-solid fa-head-side-virus"></i> Hard Skills</td>
 
-																{% for applicant in gradeavg %}
+																{% for user in gradeavg %}
 															</tr>
 															<tr>
-																<td>{{applicant.soft_skills__avg}}</td>
-																<td>{{applicant.hard_skills__avg}}</td>
+																<td>{{user.soft_skills__avg}}</td>
+																<td>{{user.hard_skills__avg}}</td>
 															</tr>
 															{% endfor %}
 													

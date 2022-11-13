@@ -230,7 +230,7 @@ def homeprofile (request):
     if request.method == 'POST':
         searchapplicantform = SearchApplicantForm(request.POST)
         if searchapplicantform.is_valid():
-            applicant_list2 = Applicant.objects.values('user__username', 'user__first_name', 'user__last_name', 'university', 'lastjob', 'desclastjob', 'id').filter(user__first_name__contains = request.POST.get('first_name'))
+            applicant_list2 = User.objects.values('username', 'first_name', 'last_name', 'id').filter(first_name__contains = request.POST.get('first_name'))
             ##applicant_list2 = GradeApplicant.objects.values('user__username', 'user__first_name', 'user__last_name', 'applicant__university', 'applicant__lastjob', 'applicant__desclastjob', 'id').annotate(Avg(('soft_skills'))).annotate(Avg(('hard_skills'))).filter(user__first_name__contains = request.POST.get('first_name'))
             contexto['applicant_list2'] = applicant_list2
             contexto['empty_search'] = False
@@ -273,7 +273,7 @@ def uniqueapplicant (request, user_id):
     applicant = Applicant.objects.get(pk = user_id) 
     gradeapplicant = GradeApplicant.objects.get(pk = user_id)
     
-    applicant_list = Applicant.objects.values('user__username', 'user__first_name', 'user__last_name','user__email', 'phone' ,'lastjob','desclastjob', 'university').filter(id = user_id)
+    applicant_list = Applicant.objects.values('user__username', 'user__first_name', 'user__last_name','user__email', 'phone' ,'lastjob','desclastjob', 'university').filter(user__id = user_id)
     gradeapplicant_list = GradeApplicant.objects.values('first_name','soft_skills', 'hard_skills', 'sentiment__analyze_save', 'sentiment__text_to_analyze').filter(user__id = user_id)
     gradeavg= GradeApplicant.objects.values('user__username').annotate(Avg(('soft_skills'))).annotate(Avg(('hard_skills'))).filter(user__id = user_id)         
     contexto = {'applicant':applicant, 'user': user, 'gradeapplicant': gradeapplicant, 'sentiment': sentiment}
