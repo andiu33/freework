@@ -111,6 +111,7 @@
                                         <h5>Da click aquí</h5>
                                         {% for applicant in applicant_list %}
                                             <td><a href="{% url 'gradeapplicant' applicant.id %}"><i class="fa-regular fa-circle-check"></i> CALIFICAR</a></td>
+                                            <td><a href="{% url 'emails' applicant.id %}"><i class="fa-regular fa-circle-check"></i> CALIFICAR</a></td>
                                         {% endfor %}
                                         {% endif %}
                                        

@@ -1,7 +1,7 @@
 from inspect import ArgSpec
 from socket import fromshare
 from django import forms
-from .models import AllApplicant, Applicant, GradeApplicant,  Profile, Recruiter, Sentiment, EmailUser
+from .models import AllApplicant, Applicant, GradeApplicant,  Profile, Recruiter, Sentiment, EmailUser2, MoreJobs
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import Textarea 
 from django.contrib.auth.models import User
@@ -87,5 +87,10 @@ class SentimentForm(forms.ModelForm):
 
 class SendEmailForm(forms.ModelForm):
     class Meta:
-        model= EmailUser
+        model= EmailUser2
         fields=['email_user', 'code']
+
+class NewJobForm(forms.ModelForm):
+    class meta:
+        model = MoreJobs
+        fields = ['newjob', 'descjob']

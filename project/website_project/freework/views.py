@@ -390,16 +390,22 @@ def loggedhome(request):
     return render(request, 'loggedhome.html', {})
 
 
-def emails(request):
-    emailform = SendEmailForm()
-    context = {'emailform': emailform}    
+def emails(request, id):
+    
+    email_form = SendEmailForm()
+    applicant = Applicant.objects.get(id = id)
+    user_id= request.user
+    user = User.objects.get(username =request.user.username)    
+    grade = GradeApplicant.objects
+    context = {'email_form': email_form,  'applicant': applicant, 'user_id': user_id, 'user': user, 'grade': grade}    
     if request.method == 'POST':
         print(request.POST.get('email_user'))
         number_of_strings = 1
         length_of_string = 12
         for x in range(number_of_strings):
-            code= (''.join(random.choice(string.ascii_letters + string.digits) for _ in range(length_of_string)))
-        context2 = {'email_user':request.POST.get('email_user'), 'code': code}
+            code = (''.join(random.choice(string.ascii_letters + string.digits) for j in range(length_of_string)))
+        username = User.objects.get(username =request.user.username) 
+        context2 = {'email_user':request.POST.get('email_user'), 'code': code, 'username': username}
         email_to_send = request.POST.get('email_user')
         
         template = get_template('emailtemplate.html')
@@ -413,8 +419,11 @@ def emails(request):
         )        
         email.attach_alternative(content,'text/html')
         email.send()
+        
         #return render(request, 'mail.html',context)        
     return render(request, 'mail.html',context)
 
 def validatecode(request):
     return render(request, 'validatecode.html', {})
+
+
