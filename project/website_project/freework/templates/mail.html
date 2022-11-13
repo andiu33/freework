@@ -22,17 +22,19 @@
 					<div id="wrapper">
 
 						
-
+						
 						<!-- Panel (Spotlight) -->
 						<section class="panel color1">
 							<div class="inner">
+								<center><i class="fa-solid fa-house"></i><p><a href= " {% url 'loggedhome' %}"><strong>Home</strong></a></p></center>
+								<h2><i class="fa-solid fa-truck-fast"></i></h2>
                                 <h3> ¡Genial! </h3>
-                                <h5>Envía un formulario a tus actuales o ex compañeros de trabajo para que validen tu información. &#129312; </h5>
+                                <h5>Envía un formulario a tus actuales o ex compañeros de trabajo para que validen tu información. </h5>
                                 <form action = "" method = "post">
                                  {% csrf_token %}
                                  <div class="row">
                                      <div class="col-md-12 ">
-                                         <p>Pon Aquí el correo:<p>
+                                         <p>Escribe aquí el correo:<p>
                                          {{email_form.email_user}}
                                      </div>
                                  </div>

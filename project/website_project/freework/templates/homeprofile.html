@@ -87,11 +87,11 @@
  
                                 <section class="panel color1">
                                     <div class="intro joined">
-                                        <h2>¿Quieres actualizar tu información?  </h2>
+                                        <h2>&#9200; ¿Quieres actualizar tu información?  </h2>
                                         <h5>Da click aquí</h5>
                                         {% for applicant in applicant_list %}
                                            
-                                            <td><a href="{% url 'updateapplicant' applicant.id %}"><i class="fa-regular fa-pen-to-square"></i> ACTUALIZAR</a></td>
+                                            <h1><a href="{% url 'updateapplicant' applicant.id %}"><i class="fa-regular fa-pen-to-square"></i></a></td></h1>
                                        
                                         {% endfor %}    
        
@@ -103,11 +103,11 @@
  
                                 <section class="panel color1">
                                     <div class="intro joined">
-                                        <h2>¿Quieres llenar una opinión? :D</h2>
+                                        <h3>&#128195; Envía una opinión a tus comapñeros o ex compañeros para validar tu infromación </h3>
                                         <h5>Da click aquí</h5>
                                         {% for applicant in applicant_list %}
-                                            <td><a href="{% url 'gradeapplicant' %}"><i class="fa-regular fa-circle-check"></i> CALIFICAR</a></td>
-                                            <td><a href="{% url 'emails' applicant.id %}"><i class="fa-regular fa-circle-check"></i> CALIFICAR</a></td>
+                                            <!--<td><a href="{% url 'gradeapplicant' %}"><i class="fa-regular fa-circle-check"></i> CALIFICAR</a></td>-->
+                                           <h1><td><a href="{% url 'emails' applicant.id %}"><i class="fa-solid fa-envelope-circle-check"></i></a></td></h1> 
                                         {% endfor %}
                                         {% endif %}
                                        
