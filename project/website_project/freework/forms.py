@@ -61,7 +61,9 @@ class UpdateApplicantForm(forms.ModelForm):
 class GradeApplicantForm(forms.ModelForm):
     class Meta:
         model = GradeApplicant
-        fields =['first_name','last_name','relation','soft_skills', 'hard_skills']
+        #widgets = {'user': Textarea(attrs= {'cols': 5, 'rows': 1})}
+        fields =['first_name','last_name','relation','soft_skills', 'hard_skills', 'user']
+        
 
 class SearchApplicantForm(forms.ModelForm):
     class Meta:

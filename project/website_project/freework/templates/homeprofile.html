@@ -66,17 +66,17 @@
                                                 <th>Descripción</th>
 												<th>Ver perfil</th>
                                                
-                                            {% for applicant in applicant_list2 %}
+                                            {% for user in applicant_list2 %}
                                             <tr>
                                                
-                                                <td>{{applicant.user__username}}</td>  
-                                                <td>{{applicant.user__first_name}}</td>
-                                                <td>{{applicant.user__last_name}}</td>
-                                                <td>{{applicant.university}}</td>
-                                                <td>{{applicant.lastjob}}</td>
-                                                <td>{{applicant.desclastjob}}</td>    
+                                                <td>{{user.user__username}}</td>  
+                                                <td>{{user.user__first_name}}</td>
+                                                <td>{{user.user__last_name}}</td>
+                                                <td>{{user.university}}</td>
+                                                <td>{{user.lastjob}}</td>
+                                                <td>{{user.desclastjob}}</td>    
 
-												<td><a href="{% url 'uniqueapplicant' applicant.id %}"> VER </a></td>                                      
+												<td><a href="{% url 'uniqueapplicant' user.id %}"> VER </a></td>                                      
                                                
                                             </tr>
                                             {% endfor %}
@@ -110,7 +110,7 @@
                                         <h2>¿Quieres llenar una opinión? :D</h2>
                                         <h5>Da click aquí</h5>
                                         {% for applicant in applicant_list %}
-                                            <td><a href="{% url 'gradeapplicant' applicant.id %}"><i class="fa-regular fa-circle-check"></i> CALIFICAR</a></td>
+                                            <td><a href="{% url 'gradeapplicant' %}"><i class="fa-regular fa-circle-check"></i> CALIFICAR</a></td>
                                             <td><a href="{% url 'emails' applicant.id %}"><i class="fa-regular fa-circle-check"></i> CALIFICAR</a></td>
                                         {% endfor %}
                                         {% endif %}

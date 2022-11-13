@@ -98,15 +98,14 @@ class EmailUser2(models.Model):
 
 class GradeApplicant(models.Model):
     sentiment = models.OneToOneField(Sentiment, on_delete =models.CASCADE, null =True) 
-    user= models.ForeignKey(User, on_delete =models.CASCADE, null =True)
-    first_name =  models.CharField(max_length=255,blank=False,null=True)
-    last_name =  models.CharField(max_length=255,blank=False,null=True)
-    relation =  models.CharField(max_length=255,blank=False,null=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+    first_name =  models.CharField(max_length=255,blank=True,null=True)
+    last_name =  models.CharField(max_length=255,blank=True,null=True)
+    relation =  models.CharField(max_length=255,blank=True,null=True)
     soft_skills = models.PositiveIntegerField(blank = True, null = True)
     hard_skills = models.PositiveIntegerField(blank = True, null = True)
-    applicant = models.ForeignKey(Applicant, on_delete =models.CASCADE, null =True)
-    code = models.OneToOneField(EmailUser2,on_delete =models.CASCADE, null =True )
-    random = models.CharField(max_length = 13, blank = True, null = True)
+    applicant = models.ForeignKey(Applicant,on_delete=models.CASCADE, null=True)
+    
     def __str__(self):
         return '%s' %(self.soft_skills)
 

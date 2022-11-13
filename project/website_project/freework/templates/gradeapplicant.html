@@ -36,13 +36,37 @@
  
                                 {% csrf_token %}
                                                                                                                            
-                                    <tr>
-                                        <td style="font-size: 15px; font-family: sans-serif" >Califica a {{user.first_name}}</td>
-                                        <td> {{grade_form}} </td>
-                                        <p>Agrega un comentario</p>
-										<td> {{sentimentform.text_to_analyze}} </td>
-                                    </tr>
-                                   
+                                    
+                                        <tr>
+                                            <td style="font-size: 15px; font-family: sans-serif" >Nombre</td>
+                                            <td> {{grade_form.first_name}} </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 15px; font-family: sans-serif" >Apellido</td>
+                                            <td> {{grade_form.last_name}} </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 15px; font-family: sans-serif" >Relación</td>
+                                            <td> {{grade_form.relation}}  </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 15px; font-family: sans-serif" >Soft_skills</td>
+                                            <td> {{grade_form.soft_skills}} </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="font-size: 15px; font-family: sans-serif" >Hard Skills</td>
+                                            <td> {{grade_form.hard_skills}}  </td>
+                                        </tr>
+                                        <p>     </p>
+                                        <tr>
+                                            <td style="font-size: 15px; font-family: sans-serif" >Código</td>
+                                            <td> {{grade_form.user}}  </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 15px; font-family: sans-serif" >Agrega un comentario</td>
+                                            <td> {{sentimentform.text_to_analyze}}  </td>
+                                        </tr>
                                 </table>
                                 <button type = "submit">Calificar</button>
  

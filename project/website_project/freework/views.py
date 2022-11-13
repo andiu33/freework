@@ -267,15 +267,15 @@ def updateapplicant(request, id):
                 'updateapplicant.html',
                 {'form': form})
 @login_required
-def uniqueapplicant (request, applicant_id):
+def uniqueapplicant (request, user_id):
     user = User.objects.all()
     sentiment = Sentiment.objects.all()
-    applicant = Applicant.objects.get(pk = applicant_id) 
-    gradeapplicant = GradeApplicant.objects.get(pk = applicant_id)
+    applicant = Applicant.objects.get(pk = user_id) 
+    gradeapplicant = GradeApplicant.objects.get(pk = user_id)
     
-    applicant_list = Applicant.objects.values('user__username', 'user__first_name', 'user__last_name','user__email', 'phone' ,'lastjob','desclastjob', 'university').filter(id = applicant_id)
-    gradeapplicant_list = GradeApplicant.objects.values('first_name','soft_skills', 'hard_skills', 'sentiment__analyze_save', 'sentiment__text_to_analyze').filter(applicant__id = applicant_id)
-    gradeavg= GradeApplicant.objects.values('user__username').annotate(Avg(('soft_skills'))).annotate(Avg(('hard_skills'))).filter(applicant__id = applicant_id)         
+    applicant_list = Applicant.objects.values('user__username', 'user__first_name', 'user__last_name','user__email', 'phone' ,'lastjob','desclastjob', 'university').filter(id = user_id)
+    gradeapplicant_list = GradeApplicant.objects.values('first_name','soft_skills', 'hard_skills', 'sentiment__analyze_save', 'sentiment__text_to_analyze').filter(user__id = user_id)
+    gradeavg= GradeApplicant.objects.values('user__username').annotate(Avg(('soft_skills'))).annotate(Avg(('hard_skills'))).filter(user__id = user_id)         
     contexto = {'applicant':applicant, 'user': user, 'gradeapplicant': gradeapplicant, 'sentiment': sentiment}
     contexto['applicant_list'] = applicant_list
     contexto['gradeapplicant_list'] = gradeapplicant_list
@@ -283,14 +283,13 @@ def uniqueapplicant (request, applicant_id):
     return render(request,'uniqueapplicant.html',contexto) 
 
 @login_required
-def gradeapplicant (request, id):
-    applicant = Applicant.objects.get(id = id)
-    user_id= request.user
-    user = User.objects.get(username =request.user.username)    
+def gradeapplicant (request):   
     grade_form = GradeApplicantForm() 
     sentimentform = SentimentForm()
     sentiment = Sentiment.objects
-    contexto = {'grade_form': grade_form, 'user': user, 'user_id':user_id, 'applicant': applicant, 'sentimentform':sentimentform, 'sentiment': sentiment}    
+    contexto = {'sentimentform':sentimentform, 'sentiment': sentiment} 
+    contexto['grade_form'] = grade_form
+       
     if request.method== 'POST':
         grade_form = GradeApplicantForm(request.POST)
         sentimentform = SentimentForm(request.POST)
@@ -321,17 +320,18 @@ def gradeapplicant (request, id):
         sentiment.save()
         sentimentform = sentimentform.save()
         contexto['sentimentresult'] = doc.sentiment
-        if grade_form.is_valid():                                    
-            grade_form = grade_form.save()
-            grade_form.applicant = applicant
-            grade_form.user = user  
-            grade_form.sentiment = sentiment
-            grade_form.save() 
-
-            return redirect ('homeprofile')
-        else:
-            return redirect ('home')
-    return render(request,'gradeapplicant.html',contexto)       
+        if grade_form.is_valid():  
+            try:                                  
+                grade_form = grade_form.save()
+                grade_form.sentiment = sentiment
+                grade_form.save() 
+                return redirect ('homeprofile')
+        
+            except:
+                print("error")
+        print(grade_form.errors)
+           
+    return render(request,'gradeapplicant.html',contexto)     
     
 @login_required
 def comment_detail (request, sentiment_id):
