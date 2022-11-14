@@ -20,6 +20,16 @@ from django.conf import settings
 from django.views.static import serve
 from django.urls import re_path as url
 
+##importar todo 404
+from django.contrib import admin
+from django.urls import path, include
+from freework import views
+from django.conf import settings
+from django.conf.urls import handler404
+from django.conf.urls.static import static
+from django.views.static import serve
+from django.urls import re_path as url
+
 urlpatterns = [
     url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
     url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
@@ -28,5 +38,8 @@ urlpatterns = [
     path('newuser/', views.createuser, name= 'createuser'),
     path("freework/", include('freework.urls')),
 ]
+#añadir 404
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = 'freework.views.error_404'

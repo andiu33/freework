@@ -58,6 +58,12 @@ INTEREST_CHOICES =(
     ("Tecnología", "Tecnologia")
 )
 
+JOB_CHOICES = (
+    ("Jefe", "Jefe"),
+    ("Igual", "Igual"),
+    ("Subordinado", "Subordinado")
+)
+
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE, null=True)
     profile = models.CharField(max_length=20, choices= PROFILE_CHOICES, default='1', null=True )
@@ -101,7 +107,7 @@ class GradeApplicant(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
     first_name =  models.CharField(max_length=255,blank=True,null=True)
     last_name =  models.CharField(max_length=255,blank=True,null=True)
-    relation =  models.CharField(max_length=255,blank=True,null=True)
+    relation =  models.CharField(max_length=20, choices = JOB_CHOICES, default= '1', null=True)
     soft_skills = models.PositiveIntegerField(blank = True, null = True)
     hard_skills = models.PositiveIntegerField(blank = True, null = True)
     applicant = models.ForeignKey(Applicant,on_delete=models.CASCADE, null=True)
@@ -115,14 +121,6 @@ class MoreJobs(models.Model):
     newjob = models.CharField(max_length = 13, blank = True, null = True)
     descjob = models.CharField(max_length = 13, blank = True, null = True)
     
-
-
-
-
-
-
-
-
 
 class AllApplicant(models.Model):
     user= models.ForeignKey(User, on_delete =models.CASCADE, null =True) 

@@ -24,7 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-@05&w_w^l1jd%*41w(t(3vf9)xv0x6blm)bcy!@$yaevc_biff"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+#añadir 404
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -122,10 +124,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+#añadir404
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'freework/static'),
-]
+MEDIA_URL = '/media/'
+
+if DEBUG:
+    STATICFILES_DIR = [os.path.join(BASE_DIR, '/freework/static')]
+else:
+    STATIC_ROOT =  [os.path.join(BASE_DIR, '/freework/static')]
 
 EMAIL_HOST = 'smtp.googlemail.com'
 EMAIL_PORT = 587
