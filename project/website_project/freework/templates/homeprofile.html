@@ -29,6 +29,7 @@
                             <div class="inner">
                                 <i class="fa-solid fa-house"></i><p><a href= " {% url 'loggedhome' %}"><strong>Home</strong></a></p>
                                 <p><a href=" {% url 'logout' %}"><strong><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</strong></a></p>
+
                                 <h2 class="major">Hola! {{user.first_name}}</h2>
                                 {% if user_profile.profile == 'Reclutador' %}
                                         <h4 class="major">Eres reclutador</h4>
@@ -62,17 +63,28 @@
                                                 <th>Nombre</th>
                                                 <th>Apellido</th>
                                                 <th>Da click aquí</th>
+<<<<<<< HEAD
+                                               
+                                               
+=======
                                                 
                                                
+>>>>>>> 271ead0a3dbd5519a46f89e610e18181761de8c0
                                             {% for user in applicant_list2 %}
                                             <tr>
                                                
                                                 <td>{{user.username}}</td>  
                                                 <td>{{user.first_name}}</td>
                                                 <td>{{user.last_name}}</td>
+<<<<<<< HEAD
+                                                   
+ 
+                                                <td><a href="{% url 'uniqueapplicant' user.id %}"> VER </a></td>                                      
+=======
                                                     
 
 												<td><a href="{% url 'uniqueapplicant' user.id %}"> VER </a></td>                                      
+>>>>>>> 271ead0a3dbd5519a46f89e610e18181761de8c0
                                                
                                             </tr>
                                             {% endfor %}
@@ -107,7 +119,11 @@
                                         <h5>Da click aquí</h5>
                                         {% for applicant in applicant_list %}
                                             <!--<td><a href="{% url 'gradeapplicant' %}"><i class="fa-regular fa-circle-check"></i> CALIFICAR</a></td>-->
+<<<<<<< HEAD
+                                           <h1><td><a href="{% url 'emails' applicant.id %}"><i class="fa-solid fa-envelope-circle-check"></i></a></td></h1>
+=======
                                            <h1><td><a href="{% url 'emails' applicant.id %}"><i class="fa-solid fa-envelope-circle-check"></i></a></td></h1> 
+>>>>>>> 271ead0a3dbd5519a46f89e610e18181761de8c0
                                         {% endfor %}
                                         {% endif %}
                                        
@@ -146,4 +162,6 @@
                             <div class=""image filtered tinted" data-position="top left">
                                 <img src=" {%static 'assets/images/pic02.jpg' %}" alt=""/>
                             </div>
+ 
+ 
  

@@ -25,21 +25,30 @@
                         <!-- Panel (Banner) -->
                             <section class="panel banner right">
                                 <div class="content color0 span-3-75">
+                                    <button class="open-button" onclick=openForm()><h2><i class="fa-solid fa-user-astronaut"></i></h2></i></button>	
+                                    <div class="chat-popup" id="chatbotpanel">
+                                        <i class="fa-solid fa-user-astronaut"></i>
+                                        <form class="form-chatbot" > 
+                                            <iframe src='https://webchat.botframework.com/embed/dsccoglanguage-botfree-work?s=9tXzDkRYYys.Jz6HyAK1SquKPMOWa-Dd-CPGRpIaacfZcOSyyjskwIA'  style='min-width: 400px; width: 100%; min-height: 500px;'></iframe>                                        <button type="button" class="btn_cancel" onclick=closeForm()>Cerrar Bot</button>
+                                        </form>
+                                     </div>
                                     <h1 class="major">Hola, mi nombre<br />
                                     es FREEWORK</h1>
                                    
                                     <p> <strong>FREEWORK</strong>, una red social la cual te ayudará a contratar o dar servicios de calidad <a href="https://html5up.net"></a>. ¿Cómo haremos esto? Tu perfil personal te ayudará a poder tener contacto directo con tus objetivos personales.</p>
                                     <p><a href=" {% url 'login' %}"><strong><i class="fa-solid fa-right-to-bracket"></i>  Login</strong></a></p>
  
-                                    <p><a href=" {% url 'logout' %}"><strong><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</strong></a></p>
+
+    
                                 </div>
                             </section>
  
                         <!-- Panel (Spotlight) -->
                         <section class="panel color1">
                             <div class="intro joined">
-                                <i class="fa-solid fa-user-pen"></i>
-                                <h2 class="major">Aspirante</h2>
+                                <p><a href=" {% url 'logout' %}"><strong><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</strong></a></p>
+
+                                <h2 class="major"> <i class="fa-solid fa-user-pen"></i> Aspirante</h2>
                                 <p>¿Necesitas que confién en ti? ¡Nosotros te echamos la mano! Con Hiring.Now! podrás tener referencias visibles en tu perfil para encontrar chamba mas rápido ;)</p>
                                 <p><a href=" {% url 'createapplicant' %}"><strong>¡Regístrate!<i class="fa-solid fa-address-card"></i></strong></a></p>
                                
@@ -53,8 +62,7 @@
  
                             <section class="panel color1">
                                 <div class="intro joined">
-                                    <i class="fa-solid fa-user-tie"></i>
-                                    <h2 class="major">Reclutador</h2>
+                                    <h2 class="major"> <i class="fa-solid fa-user-tie"></i> Reclutador</h2>
                                     <p>¿Te gustaría encontrar al talento más rápido? Hiring.Now! te ayuda ;) Con nuestro buscador te ahorraremos horas de trabajo para seleccionar al aspirante perfecto :D </p>
                                     <p><a href=" {% url 'createrecruiter' %}"><strong>¡Regístrate! <i class="fa-solid fa-address-card"></i></strong></a></p>
  
@@ -80,6 +88,28 @@
             <script src="{% static 'assets/js/main.js'%}"></script>
  
     </body>
+
+
+    <script>
+		function openNav() {
+		  document.getElementById("mySidepanel").style.width = "250px";
+		}
+		
+		function closeNav() {
+		  document.getElementById("mySidepanel").style.width = "0";
+		}
+  </script>
+  
+   <!-- BotScript files-->
+  <script>
+  function openForm() {
+	document.getElementById("chatbotpanel").style.display = "block";
+  }
+  
+  function closeForm() {
+	document.getElementById("chatbotpanel").style.display = "none";
+  }
+  </script>
 </html>
                             <div class=""image filtered tinted" data-position="top left">
                                 <img src=" {%static 'assets/images/pic02.jpg' %}" alt=""/>

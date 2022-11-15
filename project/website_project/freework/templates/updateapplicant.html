@@ -11,6 +11,8 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <link rel="stylesheet" href="{% static 'assets/css/main.css'  %}" />
+        <script src="https://kit.fontawesome.com/644708f04c.js" crossorigin="anonymous"></script>
+
         <noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
     </head>
     <body class="is-preload">
@@ -30,6 +32,14 @@
                                 <h2 class="major">Hola! {{user.first_name}}</h2>
                                 <h3>Actualiza tu infromación de manera fácil</h3>
                                 <p><a href= " {% url 'homeprofile' %}"><strong>Cancelar</strong></a></p>
+                                <button class="open-button" onclick=openForm()><h2><i class="fa-solid fa-user-astronaut"></i></h2></i></button>	
+								<div class="chat-popup" id="chatbotpanel">
+									<i class="fa-solid fa-user-astronaut"></i>
+									<form class="form-chatbot" > 
+                                        <iframe src='https://webchat.botframework.com/embed/dsccoglanguage-botfree-work?s=9tXzDkRYYys.Jz6HyAK1SquKPMOWa-Dd-CPGRpIaacfZcOSyyjskwIA'  style='min-width: 400px; width: 100%; min-height: 500px;'></iframe>                                        <button type="button" class="btn_cancel" onclick=closeForm()>Cerrar Bot</button>
+									</form>
+								 </div>
+
  
                             </section>                                                                                              
                                     <section class="panel color1">
@@ -49,6 +59,29 @@
                                                 <script src="{% static 'assets/js/browser.min.js'%}"></script>
                                                 <script src="{% static 'assets/js/breakpoints.min.js'%}"></script>
                                                 <script src="{% static 'assets/js/main.js'%}"></script>
+
+
+                                                <script>
+                                                    function openNav() {
+                                                      document.getElementById("mySidepanel").style.width = "250px";
+                                                    }
+                                                    
+                                                    function closeNav() {
+                                                      document.getElementById("mySidepanel").style.width = "0";
+                                                    }
+                                              </script>
+                                              
+                                               <!-- BotScript files-->
+                                              <script>
+                                              function openForm() {
+                                                document.getElementById("chatbotpanel").style.display = "block";
+                                              }
+                                              
+                                              function closeForm() {
+                                                document.getElementById("chatbotpanel").style.display = "none";
+                                              }
+                                              </script>
+                                            
                                    
                                         </body>
                                     </html>

@@ -11,12 +11,14 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="{% static 'assets/css/main.css'  %}" />
+		<script src="https://kit.fontawesome.com/644708f04c.js" crossorigin="anonymous"></script>
 		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
 	</head>
 	<body class="is-preload">
 
 		<!-- Page Wrapper -->
 			<div id="page-wrapper">
+				
 
 				<!-- Wrapper -->
 					<div id="wrapper">
@@ -26,9 +28,20 @@
 						<!-- Panel (Spotlight) -->
 						<section class="panel color1">
 							<div class="inner">
-								<h2 class="major">¡Regístrate!</h2>
-								<p>FREEWORK te ayuda! Llena los siguientes campos para encontrar trabajo o candidatos lo más rápido posible :D</p>
+								<h2 class="major">¡Regístrate Reclutador!</h2>
+								<p>FREEWORK te ayuda! Llena los siguientes campos para encontrar candidatos lo más rápido posible :D</p>
                                 <p><a href= " {% url 'home' %}"><strong>Cancelar</strong></a></p>
+
+                                <button class="open-button" onclick=openForm()><h2><i class="fa-solid fa-user-astronaut"></i></h2></i></button>	
+								<div class="chat-popup" id="chatbotpanel">
+									<i class="fa-solid fa-user-astronaut"></i>
+									<form class="form-chatbot" > 
+                                        <iframe src='https://webchat.botframework.com/embed/dsccoglanguage-botfree-work?s=9tXzDkRYYys.Jz6HyAK1SquKPMOWa-Dd-CPGRpIaacfZcOSyyjskwIA'  style='min-width: 400px; width: 100%; min-height: 500px;'></iframe>                                        <button type="button" class="btn_cancel" onclick=closeForm()>Cerrar Bot</button>
+									</form>
+								 </div>
+
+		
+	
                             </div>
                             <div class="inner">
                             <form action = "" method = "post">
@@ -36,39 +49,52 @@
                                 {% csrf_token %}
 																															
 									<tr> 
-										<td style="font-size: 15px; font-family: sans-serif" >Username</td>
+										<i class="fa-regular fa-user"></i>
+										<td style="font-size: 15px; font-family: sans-serif" >Usuario</td>
 										<td> {{ user_form.username }} </td>
 									</tr>
 									<tr> 
+										<i class="fa-solid fa-envelope"></i>
 										<td style="font-size: 15px; font-family: sans-serif" >Email</td>
 										<td> {{ user_form.email }} </td>
 									</tr>
                                                         
 									<tr> 
+										<i class="fa-regular fa-address-card"></i>
 										<td style="font-size: 15px; font-family: sans-serif" >Nombre</td>
 										<td> {{ user_form.first_name }} </td>
 									</tr>
 									<tr> 
+										<i class="fa-solid fa-address-card"></i>
 										<td style="font-size: 15px; font-family: sans-serif" >Apellido</td>
 										<td> {{ user_form.last_name }} </td>
 									</tr>
 									
 									
 									<tr> 
-										<td style="font-size: 15px; font-family: sans-serif" >Password</td>
+										<i class="fa-solid fa-key"></i>
+										<td style="font-size: 15px; font-family: sans-serif" >Contraseña</td>
+						
 										<td> {{ user_form.password1}} </td>
 									</tr>
 									<tr> 
-										<td style="font-size: 15px; font-family: sans-serif" >Password</td>
+										<i class="fa-solid fa-key"></i>
+										<td style="font-size: 15px; font-family: sans-serif" >Confirma contraseña</td>
 										<td> {{ user_form.password2}} </td>
 									</tr>
 									<tr> 
-										<td style="font-size: 15px; font-family: sans-serif" >Recruiter_form</td>
-										<td> {{recruiter_form}} </td>
+										<i class="fa-regular fa-building"></i>
+										<td style="font-size: 15px; font-family: sans-serif" >Empresa</td>
+										<td> {{recruiter_form.company}} </td>
 
 									</tr>
 									<tr> 
-										<td style="font-size: 15px; font-family: sans-serif" >Tipo de Perfil</td>
+										<i class="fa-solid fa-phone"></i>
+										<td style="font-size: 15px; font-family: sans-serif" >Télefono</td>
+										<td> {{recruiter_form.phone}} </td>
+
+									</tr>
+									<tr> 
 										<td> {{profile_form}} </td>
 
 									</tr>
@@ -79,13 +105,15 @@
                             </form>
                             <br>
                             </div>
+							
 								
 							</div>
 							<div class="panel color 1" data-position="top left">
 								<img src="images/pic02.jpg" alt="" />
 							</div>
 						</section>	
-						
+										
+	
 						
 		<!-- Scripts -->
 			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
@@ -94,6 +122,27 @@
 			<script src="{% static 'assets/js/main.js'%}"></script>
 
 	</body>
+
+	<script>
+		function openNav() {
+		  document.getElementById("mySidepanel").style.width = "250px";
+		}
+		
+		function closeNav() {
+		  document.getElementById("mySidepanel").style.width = "0";
+		}
+  </script>
+  
+   <!-- BotScript files-->
+  <script>
+  function openForm() {
+	document.getElementById("chatbotpanel").style.display = "block";
+  }
+  
+  function closeForm() {
+	document.getElementById("chatbotpanel").style.display = "none";
+  }
+  </script>
 </html>
 							<div class=""image filtered tinted" data-position="top left">
 								<img src=" {%static 'assets/images/pic02.jpg' %}" alt=""/>

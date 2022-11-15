@@ -21,15 +21,25 @@
  
                 <!-- Wrapper -->
                     <div id="wrapper">
- 
-                       
+                     
  
                         <!-- Panel (Spotlight) -->
                         <section class="panel color2">
                             <div class="intro joined">
                                 <h2 class="major">Login</h2>
-                                <p>¿Te gustaría encontrar al talento más rápido? FREEWORK te ayuda ;) Con nuestro buscador te ahorraremos horas de trabajo para seleccionar al aspirante perfecto :D </p>
+                                <p>¿Te gustaría encontrar al talento más rápido? FREEWORK te ayuda ;)  </p>
+                            
+                                <p>Inicia sesión y conoce más</p>
+                                
                                 <p><a href= " {% url 'home' %}"><strong><i class="fa-solid fa-house"></i>   Inicio</strong></a></p>
+                                <button class="open-button" onclick=openForm()><h2><i class="fa-solid fa-user-astronaut"></i></h2></i></button>	
+								<div class="chat-popup" id="chatbotpanel">
+									<i class="fa-solid fa-user-astronaut"></i>
+									<form class="form-chatbot" > 
+                                        <iframe src='https://webchat.botframework.com/embed/dsccoglanguage-botfree-work?s=9tXzDkRYYys.Jz6HyAK1SquKPMOWa-Dd-CPGRpIaacfZcOSyyjskwIA'  style='min-width: 400px; width: 100%; min-height: 500px;'></iframe>                                        <button type="button" class="btn_cancel" onclick=closeForm()>Cerrar Bot</button>
+									</form>
+								 </div>
+
                             </div>
                             <div class="inner">
                             <form action = "" method = "post">
@@ -38,12 +48,12 @@
                            
                                
                                 <table>
-                                    <h2><i class="fa-solid fa-user"></i> Username</h2>
+                                    <h2><i class="fa-solid fa-user"></i> Usuario</h2>
                                     <td>{{form.username}}</td>
                                 </table>
  
                                 <table>
-                                    <h2><i class="fa-solid fa-key"></i> Password</h2>
+                                    <h2><i class="fa-solid fa-key"></i> Contraseña</h2>
                                
                                     <td>{{form.password}}</td>
  
@@ -56,7 +66,7 @@
                                 <button type = "submit">Entrar</button>
                                 <br>
                                 <p>    </p>
-                                <p> <a href='password_reset'><strong>¿Olvidaste tu contraseña? Haz click Aquí </strong></a></p>
+                                <p> <a href=" {% url 'password_reset' %}" ><strong>¿Olvidaste tu contraseña? Haz click Aquí </strong></a></p>
  
  
                             <br>
@@ -67,7 +77,26 @@
                             </div>
                         </section>  
                        
-                       
+                        <script>
+                            function openNav() {
+                              document.getElementById("mySidepanel").style.width = "250px";
+                            }
+                            
+                            function closeNav() {
+                              document.getElementById("mySidepanel").style.width = "0";
+                            }
+                      </script>
+                      
+                       <!-- BotScript files-->
+                      <script>
+                      function openForm() {
+                        document.getElementById("chatbotpanel").style.display = "block";
+                      }
+                      
+                      function closeForm() {
+                        document.getElementById("chatbotpanel").style.display = "none";
+                      }
+                      </script>                    
  
                        
                        

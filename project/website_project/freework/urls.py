@@ -1,9 +1,9 @@
 from django.contrib import admin
-from django.urls import path 
+from django.urls import path
 from . import views
-from django.contrib.auth.views import PasswordResetView 
-
-
+from django.contrib.auth.views import PasswordResetView
+ 
+ 
 urlpatterns= [
     path('home', views.home, name= 'home'),
    
@@ -20,9 +20,10 @@ urlpatterns= [
     path('loggedhome/', views.loggedhome, name='loggedhome'),
     path('emails/<int:id>',views.emails, name= 'emails'),
     path('validatecode',views.validatecode, name= 'validatecode'),
-
-
-    ##path('updateaspirante/<int:updateaspirante_id>',views.update_aspirante, name ='updateaspirante'),   
-
-
+ 
+ 
+    ##path('updateaspirante/<int:updateaspirante_id>',views.update_aspirante, name ='updateaspirante'),  
+ 
+ 
 ]
+ 

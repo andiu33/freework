@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "freework",
-    "phone_field",
+  
     
 ]
 LOGIN_URL = '/accounts/login/'
@@ -127,16 +127,28 @@ USE_TZ = True
 #añadir404
 STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
+<<<<<<< HEAD
+ 
+=======
 
+>>>>>>> 271ead0a3dbd5519a46f89e610e18181761de8c0
 if DEBUG:
     STATICFILES_DIR = [os.path.join(BASE_DIR, '/freework/static')]
 else:
     STATIC_ROOT =  [os.path.join(BASE_DIR, '/freework/static')]
+<<<<<<< HEAD
+ 
+ 
+
+
+
+=======
+>>>>>>> 271ead0a3dbd5519a46f89e610e18181761de8c0
 
 EMAIL_HOST = 'smtp.googlemail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'ami.ascarragaflores@gmail.com'
-EMAIL_HOST_PASSWORD = 'pthwnewwtetnygjs'
+EMAIL_HOST_USER = 'free.work.notificaciones@gmail.com'
+EMAIL_HOST_PASSWORD = 'vnimezpdrnxfwhxj'
 EMAIL_USE_TLS = True
 
 # Default primary key field type

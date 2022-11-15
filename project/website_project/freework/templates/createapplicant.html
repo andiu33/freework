@@ -22,15 +22,23 @@
  
                 <!-- Wrapper -->
                     <div id="wrapper">
- 
-                       
+                      
  
                         <!-- Panel (Spotlight) -->
                         <section class="panel color1">
                             <div class="inner">
-                                <h2 class="major">¡Regístrate!</h2>
-                                <p>FREEWORK te ayuda! Llena los siguientes campos para encontrar trabajo o candidatos lo más rápido posible :D</p>
+                                <h2 class="major">¡Regístrate Aspirante!</h2>
+                                <p>FREEWORK te ayuda! Llena los siguientes campos para encontrar trabajo lo más rápido posible :D</p>
                                 <p><a href= " {% url 'home' %}"><strong>Cancelar</strong></a></p>
+                                
+                                <button class="open-button" onclick=openForm()><h2><i class="fa-solid fa-user-astronaut"></i></h2></i></button>	
+								<div class="chat-popup" id="chatbotpanel">
+									<i class="fa-solid fa-user-astronaut"></i>
+									<form class="form-chatbot" > 
+                                        <iframe src='https://webchat.botframework.com/embed/dsccoglanguage-botfree-work?s=9tXzDkRYYys.Jz6HyAK1SquKPMOWa-Dd-CPGRpIaacfZcOSyyjskwIA'  style='min-width: 400px; width: 100%; min-height: 500px;'></iframe>                                        <button type="button" class="btn_cancel" onclick=closeForm()>Cerrar Bot</button>
+									</form>
+								 </div>
+
                             </div>
                             <div class="inner">
                             <form action = "" method = "post">
@@ -39,7 +47,7 @@
                                                                                                                            
                                     <tr>
                                         <i class="fa-regular fa-user"></i>
-                                        <td style="font-size: 15px; font-family: sans-serif" >Username</td>
+                                        <td style="font-size: 15px; font-family: sans-serif" >Usuario</td>
                                         <td> {{ user_form.username }} </td>
                                     </tr>
                                     <tr>
@@ -50,33 +58,51 @@
                                                        
                                     <tr>
                                         <i class="fa-regular fa-address-card"></i>
-                                        <td style="font-size: 15px; font-family: sans-serif" >Nombre</td>
+                                        <td style="font-size: 15px; font-family: sans-serif" > Nombre</td>
                                         <td> {{ user_form.first_name }} </td>
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 15px; font-family: sans-serif" >Apellido</td>
+                                        <i class="fa-solid fa-address-card"></i>
+                                        <td style="font-size: 15px; font-family: sans-serif" > Apellido</td>
                                         <td> {{ user_form.last_name }} </td>
-                                    </tr>
-                                   
-                                   
+                                    </tr>                                  
                                     <tr>
                                         <i class="fa-solid fa-key"></i>
-                                        <td style="font-size: 15px; font-family: sans-serif" >Password</td>
-                                        <td> {{ user_form.password1}} </td>
+                                        <td style="font-size: 15px; font-family: sans-serif" > Contraseña</td>
+                                        <td> {{ user_form.password1 }} </td>
                                     </tr>
                                     <tr>
                                         <i class="fa-solid fa-key"></i>
-                                        <td style="font-size: 15px; font-family: sans-serif" >Password</td>
-                                        <td> {{ user_form.password2}} </td>
+                                        <td style="font-size: 15px; font-family: sans-serif" > Confirma contraseña</td>
+                                        <td> {{ user_form.password2 }} </td>
                                     </tr>
                                     <tr>
                                         <i class="fa-solid fa-building"></i>
-                                        <td style="font-size: 15px; font-family: sans-serif" >Recruiter_form</td>
-                                        <td> {{applicant_form}} </td>
- 
+                                        <td style="font-size: 15px; font-family: sans-serif" > Universidad</td>
+                                        <td> {{ applicant_form.university }}</td> 
                                     </tr>
                                     <tr>
-                                        <td style="font-size: 15px; font-family: sans-serif" >Tipo de Perfil</td>
+                                        <i class="fa-solid fa-network-wired"></i>
+                                        <td style="font-size: 15px; font-family: sans-serif" > Intereses</td>
+                                        <td> {{ applicant_form.interest }}</td> 
+                                    </tr>
+                                    <tr>
+                                        <i class="fa-solid fa-briefcase"></i>
+                                        <td style="font-size: 15px; font-family: sans-serif" > Último trabajo</td>
+                                        <td> {{ applicant_form.lastjob }}</td> 
+                                    </tr>
+                                    <tr>
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                        <td style="font-size: 15px; font-family: sans-serif" >Cuéntanos un poco de tu último trabajo</td>
+                                        <td> {{ applicant_form.desclastjob }}</td> 
+                                    </tr>
+                                    <tr>
+                                        <i class="fa-solid fa-phone"></i>
+                                        <td style="font-size: 15px; font-family: sans-serif" >Teléfono</td>
+                                        <td> {{ applicant_form.phone }}</td> 
+                                    </tr>
+                                    <tr>
+
                                         <td> {{profile_form}} </td>
  
                                     </tr>
@@ -102,6 +128,26 @@
             <script src="{% static 'assets/js/main.js'%}"></script>
  
     </body>
+	<script>
+		function openNav() {
+		  document.getElementById("mySidepanel").style.width = "250px";
+		}
+		
+		function closeNav() {
+		  document.getElementById("mySidepanel").style.width = "0";
+		}
+  </script>
+  
+   <!-- BotScript files-->
+  <script>
+  function openForm() {
+	document.getElementById("chatbotpanel").style.display = "block";
+  }
+  
+  function closeForm() {
+	document.getElementById("chatbotpanel").style.display = "none";
+  }
+  </script>
 </html>
                             <div class=""image filtered tinted" data-position="top left">
                                 <img src=" {%static 'assets/images/pic02.jpg' %}" alt=""/>

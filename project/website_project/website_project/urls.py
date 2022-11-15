@@ -1,5 +1,5 @@
 """website_project URL Configuration
-
+ 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
 Examples:
@@ -19,7 +19,11 @@ from freework import views
 from django.conf import settings
 from django.views.static import serve
 from django.urls import re_path as url
+<<<<<<< HEAD
+ 
+=======
 
+>>>>>>> 271ead0a3dbd5519a46f89e610e18181761de8c0
 ##importar todo 404
 from django.contrib import admin
 from django.urls import path, include
@@ -29,7 +33,11 @@ from django.conf.urls import handler404
 from django.conf.urls.static import static
 from django.views.static import serve
 from django.urls import re_path as url
+<<<<<<< HEAD
+ 
+=======
 
+>>>>>>> 271ead0a3dbd5519a46f89e610e18181761de8c0
 urlpatterns = [
     url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
     url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
@@ -41,5 +49,11 @@ urlpatterns = [
 #añadir 404
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+<<<<<<< HEAD
+ 
+handler404 = 'freework.views.error_404'
+ 
+=======
 
 handler404 = 'freework.views.error_404'
+>>>>>>> 271ead0a3dbd5519a46f89e610e18181761de8c0
